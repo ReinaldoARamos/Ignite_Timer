@@ -1,13 +1,14 @@
 
 import { ButtonContainer } from "./Button.styled";
 
+
 interface ButtonProps {
-  color?: "primary" | "secondary" | "danger" | "neutral";
+  variant?: "primary" | "secondary" | "danger" | "neutral";
 }
-export function Button({ color = "primary" }: ButtonProps) {
+export function Button({ variant = "primary" }: ButtonProps) {
   return (
     <>
-      <ButtonContainer>Enviar</ButtonContainer>
+      <ButtonContainer variant={color}>Enviar</ButtonContainer>
     </>
   );
 }

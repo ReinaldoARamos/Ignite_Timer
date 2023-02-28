@@ -7,9 +7,9 @@ export function App() {
 
   return (
     <>
-      <Button />
-      <Button />
-      <Button />
+      <Button variant='primary'/>
+      <Button variant='neutral'/>
+      <Button variant='secondary'/>
       <Button />
       
     </>
