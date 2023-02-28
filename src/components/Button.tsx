@@ -9,7 +9,7 @@ export function Button({ variant = "primary" }: ButtonProps) { //colocamos varia
   //tenha cor definida ele passe como padrao a primaria
   return (
     <>
-      <ButtonContainer variant={color}>Enviar</ButtonContainer>
+      <ButtonContainer variant={variant}>Enviar</ButtonContainer>
     </>
   );
 }

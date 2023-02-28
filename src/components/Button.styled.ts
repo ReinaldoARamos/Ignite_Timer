@@ -4,6 +4,13 @@ export type ButtonVariant = "primary" | "secondary" | "danger" | "neutral"; //cr
 interface ButtonContainerProps {
   variant: ButtonVariant;
 }
+
+const buttonVariant = {
+    primary: 'purble',
+    secondary: 'orange',
+    danger: 'red',
+    neutral: 'grey'
+}
 export const ButtonContainer  = styled.button<ButtonContainerProps>`
   width: 100px;
   height: 40px;
