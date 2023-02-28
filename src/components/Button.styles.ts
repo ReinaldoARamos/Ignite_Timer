@@ -15,10 +15,12 @@ export const ButtonContainer  = styled.button<ButtonContainerProps>`
   width: 100px;
   height: 40px;
 
-  background-color: ${props => props.theme.primary} //aplicando no theme a cor primary que ele acessa dentro do theme
+  background-color: ${props => props.theme.secondary} //aplicando no theme a cor primary que ele acessa dentro do theme
 /*
   ${props => {
-    return css`background-color: ${buttonVariant[props.variant]}` //colocamos o props, ele percurre o objeto button
+    return css`background-color: ${buttonVariant[props.variant]};
+    coli
+    ` //colocamos o props, ele percurre o objeto button
     //variants, pega as cores e aplica dentro do props.variant o background color, no caso, o props variant sao primary
     //secondary etc
   }}

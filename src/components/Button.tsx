@@ -1,5 +1,5 @@
 
-import { ButtonContainer, ButtonVariant } from "./Button.styled"; //import do styles
+import { ButtonContainer, ButtonVariant } from "./Button.styles"; //import do styles
 
 
 interface ButtonProps {
