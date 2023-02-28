@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+ import styled, {css} from "styled-components";
 
 export type ButtonVariant = "primary" | "secondary" | "danger" | "neutral"; //criando tipos para passar a cor no variant
 interface ButtonContainerProps {
