@@ -1,4 +1,5 @@
-import styles from "../components/Button.module.css";
+
+import { ButtonContainer } from "./Button.styled";
 
 interface ButtonProps {
   color?: "primary" | "secondary" | "danger" | "neutral";
@@ -6,7 +7,7 @@ interface ButtonProps {
 export function Button({ color = "primary" }: ButtonProps) {
   return (
     <>
-      <button className={styles.button}>Enviar</button>
+      <ButtonContainer>Enviar</ButtonContainer>
     </>
   );
 }
