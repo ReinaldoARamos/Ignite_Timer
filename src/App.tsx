@@ -3,6 +3,8 @@ import { Button } from './components/Button'
 import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from './styles/theme/default'
 import { GlobalStyle } from './styles/global'
+import { Router } from './routes/routes'
+import { BrowserRouter } from 'react-router-dom'
 
 export function App() {
   // const [count, setCount] = useState(0)
@@ -11,6 +13,10 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
+      <BrowserRouter>
+      <Router/>
+      </BrowserRouter>
+     
     </ThemeProvider>
   )
 }
