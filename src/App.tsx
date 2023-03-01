@@ -10,11 +10,6 @@ export function App() {
   // passando o themeProvider nos botoes
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Button variant="primary" />
-      <Button variant="neutral" />
-      <Button variant="secondary" />
-      <Button />
-
       <GlobalStyle />
     </ThemeProvider>
   )
