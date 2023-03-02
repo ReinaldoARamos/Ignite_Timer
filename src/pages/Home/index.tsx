@@ -3,9 +3,12 @@ import { CountdownContainer, FormContainer, HomeContainer } from "../History/sty
 
 export function Home() {
   return (
+
     <HomeContainer>
-      <form>
+         <form>
+
         <FormContainer>
+          <div>
           <label htmlFor="task">Vou trabalher em</label>
           <input id="task" />
 
@@ -13,6 +16,7 @@ export function Home() {
           <input type="Number" id="minutesAmount" />
 
           <span>minutos.</span>
+          </div>
         </FormContainer>
 
         <CountdownContainer>
@@ -20,14 +24,15 @@ export function Home() {
           <span>0</span>
           <span>:</span>
           <span>0</span>
-          <span>0</span>
+          <span>0</span> 
         </CountdownContainer>
 
         <button>
           <Play size={24}/>
           Começar
           </button>
-      </form>
+          </form>
     </HomeContainer>
+
   );
 }
