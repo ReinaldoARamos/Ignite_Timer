@@ -3,5 +3,5 @@ export function Header() {
     <>
       <h1>header</h1>
     </>
-  );
+  )
 }
