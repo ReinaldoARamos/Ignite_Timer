@@ -82,3 +82,9 @@ export const StartCountDownButton = styled.button`
     }
   }
 `
+const BaseInput = styled.input`
+  background-color: transparent;
+`
+export const TaskInput = styled(BaseInput)``
+
+export const MinutesAmount = styled.input``
