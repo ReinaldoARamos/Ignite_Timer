@@ -84,7 +84,14 @@ export const StartCountDownButton = styled.button`
 `
 const BaseInput = styled.input`
   background-color: transparent;
+  border: none;
+  border-bottom: 3px solid;
+  border-color: ${(props) => props.theme['gray-500']};
+  outline: none;
+  color: ${(props) => props.theme['gray-100']};
+  margin-left: 1rem;
+  margin-right: 1rem;
 `
 export const TaskInput = styled(BaseInput)``
 
-export const MinutesAmount = styled.input``
+export const MinutesAmount = styled(BaseInput)``
