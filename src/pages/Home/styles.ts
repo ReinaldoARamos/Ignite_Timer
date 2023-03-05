@@ -14,6 +14,9 @@ export const HomeContainer = styled.main`
     flex-direction: column;
     gap: 3.5rem;
   }
+
+  button {
+  }
 `
 
 export const FormContainer = styled.form`
@@ -50,4 +53,32 @@ export const Separator = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: center;
+`
+export const StartCountDownButton = styled.button`
+  width: 100%;
+
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  font-weight: bold;
+
+  background-color: ${(props) => props.theme['green-500']};
+
+  color: ${(props) => props.theme['gray-100']};
+  transition: 0.2s;
+
+  &:hover {
+    background-color: ${(props) => props.theme['green-700']};
+    color: ${(props) => props.theme['gray-700']};
+    #teste {
+      color: ${(props) => props.theme['gray-700']};
+      transition: 0.2s;
+    }
+  }
 `
