@@ -91,7 +91,26 @@ const BaseInput = styled.input`
   color: ${(props) => props.theme['gray-100']};
   margin-left: 1rem;
   margin-right: 1rem;
-`
-export const TaskInput = styled(BaseInput)``
+  height: 2.5rem;
+  font-size: 1.125rem;
+  padding: 0 0.5rem
 
-export const MinutesAmount = styled(BaseInput)``
+
+  &::placeholder{
+    color: ${(props) => props.theme['gray-500']};
+  }
+  
+  &:focus{
+
+    border-color: ${(props) => props.theme['green-500']};
+
+  }
+`
+export const TaskInput = styled(BaseInput)`
+flex: 1;
+`
+
+export const MinutesAmount = styled(BaseInput)`
+width: 4rem;
+
+`

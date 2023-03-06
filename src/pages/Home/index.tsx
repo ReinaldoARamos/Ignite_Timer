@@ -22,7 +22,7 @@ export function Home() {
             <MinutesAmount
               type="Number"
               id="minutesAmount"
-              placeholder="Definir tempo da tarefa"
+              placeholder="00"
             />
 
             <span>minutos.</span>
