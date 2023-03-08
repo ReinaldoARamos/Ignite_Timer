@@ -15,6 +15,7 @@ export function Home() {
       <form>
         <FormContainer>
           <div>
+          
             <label htmlFor="task">Vou trabalher em</label>
             <TaskInput id="task" list="task-suggestgions" placeholder="Definir tarefa  " />
             <datalist id="task-suggestgions">
@@ -33,7 +34,7 @@ export function Home() {
               step={5}
               max={60}
             />
-
+     
             <span>minutos.</span>
           </div>
         </FormContainer>

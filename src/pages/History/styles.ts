@@ -21,7 +21,7 @@ table{
 
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px. //força criação de scroll
+    min-width: 600px; //força criação de scroll
 }
 
 th{
@@ -40,6 +40,7 @@ th{
         border-top-right-radius: 8px;
         padding-right : 1.5rem;
     }
+}
 
     td{
         background-color: ${(props) => props.theme["gray-700"]};
@@ -47,11 +48,13 @@ th{
         padding: 1rem;
         font-size: 0.875rem;
         line-height: 1.6;
+
+        &:first-child{
+            width: 50%;
+            padding-left: 1.5rem;
+         }
+     }
     }
 
-    &:first-child{
-       width: 50%;
-       padding-left: 1.5rem;
-    }
-}
+  
 `
