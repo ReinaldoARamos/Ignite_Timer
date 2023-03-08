@@ -59,14 +59,17 @@ th{
   
 `
 
-interface STATUS_COLOR {
+const STATUS_COLOR  = { //cria um objeto que armazena o valor das cores
     yellow: 'yellow-500',
-    red: 'red-500';
-    green: 'green-500'
-} 
+    red: 'red-500',
+    green: 'green-500',
+}  as const //marca como const para poder entender que cada uma dessas string nao sao qualquer valor
 
+interface StatusProps{
+    StatusColor: 'yellow'  | 'red' | 'green'  //para o statusprops com as consts armazenadas 
+}
 
-export const StatusColor = styled.span`
+export const StatusColor = styled.span<StatusProps>` //passamos o valor da interface usando o generic
 display: flex;
 align-items: center;
 gap: 0.5rem;
@@ -76,6 +79,7 @@ gap: 0.5rem;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 9999px;
-    background-color:  ${(props) => props.theme["yellow-500"]};
+    background-color:  ${(props) => props.theme[STATUS_COLOR[props.StatusColor]]}; //definimos a cor atraves do valor armazenado
+    //dentro do objeto passando como props
 }
 `
