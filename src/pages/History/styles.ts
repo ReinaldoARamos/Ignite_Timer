@@ -58,3 +58,24 @@ th{
 
   
 `
+
+interface STATUS_COLOR {
+    yellow: 'yellow-500',
+    red: 'red-500';
+    green: 'green-500'
+} 
+
+
+export const StatusColor = styled.span`
+display: flex;
+align-items: center;
+gap: 0.5rem;
+
+&::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color:  ${(props) => props.theme["yellow-500"]};
+}
+`

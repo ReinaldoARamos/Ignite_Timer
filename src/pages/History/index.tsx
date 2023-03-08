@@ -1,4 +1,4 @@
-import { HistoryContainer, HistoryList } from "./styles";
+import { HistoryContainer, HistoryList, StatusColor } from "./styles";
 
 export function History() {
   return(
@@ -20,40 +20,19 @@ export function History() {
             <td>Tarefa</td>
             <td>20 minutos</td>
             <td>Há 2 meses</td>
-            <td>Concluído</td>
+           <td>
+           <StatusColor>Concluído</StatusColor>
+           </td>
           </tr>
           <tr>
             <td>Tarefa</td>
             <td>20 minutos</td>
             <td>Há 2 meses</td>
-            <td>Concluído</td>
+            <td>
+            <StatusColor>Concluído</StatusColor>
+              </td>
           </tr>
-          <tr>
-            <td>Tarefa</td>
-            <td>20 minutos</td>
-            <td>Há 2 meses</td>
-            <td>Concluído</td>
-          </tr>
-          <tr>
-            <td>Tarefa</td>
-            <td>20 minutos</td>
-            <td>Há 2 meses</td>
-            <td>Concluído</td>
-            
-          </tr>
-          <tr>
-            <td>Tarefa</td>
-            <td>20 minutos</td>
-            <td>Há 2 meses</td>
-            <td>Concluído</td>
-          </tr>
-          <tr>
-            <td>Tarefa</td>
-            <td>20 minutos</td>
-            <td>Há 2 meses</td>
-            <td>Concluído</td>
-          </tr>
-
+       
         </tbody>
       </table>
     </HistoryList>
