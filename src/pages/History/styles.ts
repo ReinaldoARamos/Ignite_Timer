@@ -66,7 +66,7 @@ const STATUS_COLOR  = { //cria um objeto que armazena o valor das cores
 }  as const //marca como const para poder entender que cada uma dessas string nao sao qualquer valor
 
 interface StatusProps{
-    StatusColor: 'yellow'  | 'red' | 'green'  //para o statusprops com as consts armazenadas 
+    StatusColor: keyof typeof STATUS_COLOR;  //para o statusprops com as consts armazenadas  como keys
 }
 
 export const StatusColor = styled.span<StatusProps>` //passamos o valor da interface usando o generic
