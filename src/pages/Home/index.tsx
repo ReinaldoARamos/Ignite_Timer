@@ -14,12 +14,17 @@ import {
 import { useForm } from 'react-hook-form'
 import { Action } from '@remix-run/router'
 
+const newCycleFormValidationSchema = zod.object({
+  task: zod.string().min(1, "Informe a tarefa"),
+  
+})
 /*
 O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
-que são geralmente usado com funções, como onchange, onblue e até onFocus
-*/
+que são geralmente usado com funções, como onchange, onblue e até onFocus */
 export function Home() {
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit, watch } = useForm({
+    resolver: zodResolver(), 
+  })
 
   function handleCreateNewCycle(data: any) {
     console.log(data)
