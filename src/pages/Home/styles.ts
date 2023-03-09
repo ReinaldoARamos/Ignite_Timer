@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import { useForm } from 'react-hook-form'
 export const HomeContainer = styled.main`
   flex: 1;
   display: flex;
@@ -76,6 +76,7 @@ export const StartCountDownButton = styled.button`
   &:disabled {
     background-color: ${(props) => props.theme['green-700']};
     color: ${(props) => props.theme['gray-700']};
+    cursor: not-allowed;
     #teste {
       color: ${(props) => props.theme['gray-700']};
       transition: 0.2s;
