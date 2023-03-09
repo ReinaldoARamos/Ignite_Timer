@@ -1,6 +1,6 @@
 import { Play, Watch } from 'phosphor-react'
 import { useState } from 'react'
-import zod from  'zod'
+import* as zod from  'zod'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {
   CountdownContainer,
