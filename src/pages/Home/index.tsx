@@ -22,8 +22,8 @@ const newCycleFormValidationSchema = zod.object({
 O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
 que são geralmente usado com funções, como onchange, onblue e até onFocus */
 export function Home() {
-  const { register, handleSubmit, watch, formState } = useForm<newCycleData>({
-    resolver: zodResolver(newCycleFormValidationSchema),
+  const { register, handleSubmit, watch, formState, reset } = useForm<newCycleData>({
+    resolver: zodResolver(newCycleFormValidationSchema), 
     defaultValues: {
       task: '',
       minutesAmount: 0
@@ -31,9 +31,10 @@ export function Home() {
   })
 
   type newCycleData = zod.infer<typeof newCycleFormValidationSchema>
-  
+
   function handleCreateNewCycle(data: newCycleData) {
     console.log(data)
+    reset();
   }
 console.log(formState.errors)
 
