@@ -1,4 +1,4 @@
-import { Play } from 'phosphor-react'
+import { Play, Watch } from 'phosphor-react'
 import { useState } from 'react'
 import {
   CountdownContainer,
@@ -10,17 +10,24 @@ import {
   TaskInput,
 } from '../Home/styles'
 import { useForm } from 'react-hook-form'
+import { Action } from '@remix-run/router'
 
+/*
+O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
+que são geralmente usado com funções, como onchange, onblue e até onFocus
+*/
 export function Home() {
-  const [task, setTask] = useState('')
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, watch } = useForm()
 
-  function handleSubmit() {
-    console.log('oi')
+  function handleCreateNewCycle(data: any) {
+    console.log(data)
   }
+
+  const task = watch('task')
+
   return (
     <HomeContainer>
-      <form>
+      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <FormContainer>
           <div>
             <label htmlFor="task">Vou trabalher em</label>
@@ -28,6 +35,8 @@ export function Home() {
               id="task"
               list="task-suggestgions"
               placeholder="Definir tarefa  "
+              {...register('task')}
+              // usando o ... a gente retorna todos os métodos dentro do register
             />
             <datalist id="task-suggestgions">
               <option value="projeto 1"></option>
@@ -43,6 +52,7 @@ export function Home() {
               min={5}
               step={5}
               max={60}
+              {...register('minutesAmount', { valueAsNumber: true })}
             />
 
             <span>minutos.</span>
