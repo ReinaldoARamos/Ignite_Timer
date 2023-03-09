@@ -16,19 +16,20 @@ import { Action } from '@remix-run/router'
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, "Informe a tarefa"),
-  
+  minutesAmount: zod.number().min(5).max(60),
 })
 /*
 O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
 que são geralmente usado com funções, como onchange, onblue e até onFocus */
 export function Home() {
-  const { register, handleSubmit, watch } = useForm({
-    resolver: zodResolver(), 
+  const { register, handleSubmit, watch, formState } = useForm({
+    resolver: zodResolver(newCycleFormValidationSchema), 
   })
 
   function handleCreateNewCycle(data: any) {
     console.log(data)
   }
+console.log(formState.errors)
 
   const task = watch('task')
 
@@ -59,7 +60,7 @@ export function Home() {
               placeholder="00"
               min={5}
               step={5}
-              max={60}
+              
               {...register('minutesAmount', { valueAsNumber: true })}
             />
 
