@@ -23,10 +23,18 @@ O Register é uma função que vem junto do hook form, atravé dela temos divers
 que são geralmente usado com funções, como onchange, onblue e até onFocus */
 export function Home() {
   const { register, handleSubmit, watch, formState } = useForm({
-    resolver: zodResolver(newCycleFormValidationSchema), 
+    resolver: zodResolver(newCycleFormValidationSchema),
+    defaultValues: {
+      task: '',
+      minutesAmount: 0
+    } 
   })
 
-  function handleCreateNewCycle(data: any) {
+  interface newCycleData {
+    task: string
+    minutesAmount:number
+   }
+  function handleCreateNewCycle(data: newCycleData) {
     console.log(data)
   }
 console.log(formState.errors)
