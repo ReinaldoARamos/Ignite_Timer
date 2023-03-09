@@ -42,8 +42,16 @@ export function Home() {
   type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
 
   function handleCreateNewCycle(data: newCycleData) {
-    console.log(data);
+    const newCycle: Cycle = {
+        id: String(new Date().getTime()),
+        task: data.task,
+        minutesAmout: data.minutesAmount,
+
+    }
+
+    SetCycles((state) => [...state, newCycle]) //adicionando um estado novo pegando o anterior e passando o novo
     reset();
+
   }
   console.log(formState.errors);
 
