@@ -73,7 +73,7 @@ export const StartCountDownButton = styled.button`
   color: ${(props) => props.theme['gray-100']};
   transition: 0.2s;
 
-  &:hover {
+  &:disabled {
     background-color: ${(props) => props.theme['green-700']};
     color: ${(props) => props.theme['gray-700']};
     #teste {
@@ -107,14 +107,13 @@ const BaseInput = styled.input`
   }
 `
 export const TaskInput = styled(BaseInput)`
-flex: 1;
+  flex: 1;
 
-&::-webkit-calendar-picker-indicator {
-  display: none !important
-}
+  &::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
 `
 
 export const MinutesAmount = styled(BaseInput)`
-width: 4rem;
-
+  width: 4rem;
 `
