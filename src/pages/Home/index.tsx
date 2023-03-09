@@ -9,10 +9,15 @@ import {
   StartCountDownButton,
   TaskInput,
 } from '../Home/styles'
+import { useForm } from 'react-hook-form'
 
 export function Home() {
   const [task, setTask] = useState('')
+  const { register, handleSubmit } = useForm()
 
+  function handleSubmit() {
+    console.log('oi')
+  }
   return (
     <HomeContainer>
       <form>
@@ -23,8 +28,6 @@ export function Home() {
               id="task"
               list="task-suggestgions"
               placeholder="Definir tarefa  "
-              onChange={(e) => setTask(e.target.value)}
-              value={task}
             />
             <datalist id="task-suggestgions">
               <option value="projeto 1"></option>
