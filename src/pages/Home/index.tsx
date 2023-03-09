@@ -26,8 +26,9 @@ export function Home() {
   const task = watch('task')
 
   return (
+    //aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
-      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
+      <form onSubmit={handleSubmit(handleCreateNewCycle)} action=""> 
         <FormContainer>
           <div>
             <label htmlFor="task">Vou trabalher em</label>
