@@ -30,10 +30,8 @@ export function Home() {
     } 
   })
 
-  interface newCycleData {
-    task: string
-    minutesAmount:number
-   }
+  type newCycleData = zod.infer<typeof newCycleFormValidationSchema>
+  
   function handleCreateNewCycle(data: newCycleData) {
     console.log(data)
   }
