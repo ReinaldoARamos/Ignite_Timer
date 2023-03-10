@@ -31,6 +31,7 @@ interface Cycle {
 export function Home() {
   const [cycles, SetCycles] = useState<Cycle[]>([]); //iniciando um estado que irá armazenar todos os ciclos
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null) //inicisndo o estado que vai verificar o estado ativo
+  const [ amountSecondsPass, setamountSecondsPass] = useState(0)
   const { register, handleSubmit, watch, formState, reset } =
     useForm<newCycleData>({
       resolver: zodResolver(newCycleFormValidationSchema),
@@ -44,6 +45,15 @@ export function Home() {
 const id =  String(new Date().getTime())
 
 const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+
+const TotalSeconds = activeCycle ?  activeCycle.minutesAmout * 60 : 0 //´pega os minutos passados e retorna sem segundos
+const currentSeconds = activeCycle ?  TotalSeconds -  amountSecondsPass  : 0 //pega os totais de segundos e diminui pelo que passa
+
+const minutesAmount = Math.floor(currentSeconds / 60); //PEGA OS SEGUNDOS e converte em minutos 
+const secondsAmout = currentSeconds % 60; //pega o resto da divisao  
+
+const minutes = String(minutesAmount).padStart(2, '0');
+const seconds = String(secondsAmout).padStart(2, '0');
 
 console.log(activeCycle)
 
@@ -99,11 +109,11 @@ console.log(activeCycle)
         </FormContainer>
 
         <CountdownContainer>
-          <span>0</span>
-          <span>0</span>
+          <span>{minutes[0]}</span>
+          <span>{minutes[1]}</span>
           <Separator>:</Separator>
-          <span>0</span>
-          <span>0</span>
+          <span>{seconds[0]}</span>
+          <span>{seconds[1]}</span>
         </CountdownContainer>
 
         <StartCountDownButton disabled={!task}>
