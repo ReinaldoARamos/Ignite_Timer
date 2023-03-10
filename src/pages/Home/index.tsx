@@ -30,6 +30,7 @@ interface Cycle {
 
 export function Home() {
   const [cycles, SetCycles] = useState<Cycle[]>([]); //iniciando um estado que irá armazenar todos os ciclos
+  const [activeCycleId, SetActiveCycle] = useState<string | null>(null) //inicisndo o estado que vai verificar o estado ativo
   const { register, handleSubmit, watch, formState, reset } =
     useForm<newCycleData>({
       resolver: zodResolver(newCycleFormValidationSchema),
@@ -40,20 +41,26 @@ export function Home() {
     });
 
   type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
+const id =  String(new Date().getTime())
+
+const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+
+console.log(activeCycle)
 
   function handleCreateNewCycle(data: newCycleData) {
     const newCycle: Cycle = {
-        id: String(new Date().getTime()),
+        id,
         task: data.task,
         minutesAmout: data.minutesAmount,
 
     }
 
     SetCycles((state) => [...state, newCycle]) //adicionando um estado novo pegando o anterior e passando o novo
+    SetActiveCycle(id)
     reset();
 
   }
-  console.log(formState.errors);
+
 
   const task = watch("task");
 
