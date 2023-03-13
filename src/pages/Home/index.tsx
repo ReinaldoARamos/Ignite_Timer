@@ -53,7 +53,7 @@ export function Home() {
               setamountSecondsPass(differenceInSeconds(new Date(), activeCycle.startDate))
           }, 1000)
         }
-    }, []) 
+    }, [activeCycle]) 
 
    
   type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
