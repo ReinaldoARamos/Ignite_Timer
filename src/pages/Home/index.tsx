@@ -35,8 +35,6 @@ export function Home() {
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null); //inicisndo o estado que vai verificar o estado ativo
   const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
-   
-  
 
   const { register, handleSubmit, watch, formState, reset } =
     useForm<newCycleData>({
@@ -47,18 +45,23 @@ export function Home() {
       },
     });
 
- useEffect (() => {
-        if(activeCycle){
-          setInterval(()=> {
-              setamountSecondsPass(differenceInSeconds(new Date(), activeCycle.startDate))
-          }, 1000)
-        }
-    }, [activeCycle]) 
+  useEffect(() => {
+    let interval : number
+    if (activeCycle) {
+      interval = setInterval(() => {
+        setamountSecondsPass(
+          differenceInSeconds(new Date(), activeCycle.startDate)
+        );
+       
+      }, 1000);
+    }
+    return () => {
+      clearInterval(interval)
+    }
+  }, [activeCycle]);
 
-   
   type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
   const id = String(new Date().getTime());
-
 
   const TotalSeconds = activeCycle ? activeCycle.minutesAmout * 60 : 0; //´pega os minutos passados e retorna sem segundos
   const currentSeconds = activeCycle ? TotalSeconds - amountSecondsPass : 0; //pega os totais de segundos e diminui pelo que passa
@@ -81,6 +84,7 @@ export function Home() {
 
     SetCycles((state) => [...state, newCycle]); //adicionando um estado novo pegando o anterior e passando o novo
     SetActiveCycle(id);
+    setamountSecondsPass(0)
     reset();
   }
 
