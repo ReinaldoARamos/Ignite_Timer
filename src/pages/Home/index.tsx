@@ -46,18 +46,17 @@ export function Home() {
     });
 
   useEffect(() => {
-    let interval : number
+    let interval: number;
     if (activeCycle) {
       interval = setInterval(() => {
         setamountSecondsPass(
           differenceInSeconds(new Date(), activeCycle.startDate)
         );
-       
       }, 1000);
     }
     return () => {
-      clearInterval(interval)
-    }
+      clearInterval(interval);
+    };
   }, [activeCycle]);
 
   type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
@@ -72,6 +71,12 @@ export function Home() {
   const minutes = String(minutesAmount).padStart(2, "0");
   const seconds = String(secondsAmout).padStart(2, "0");
 
+  useEffect(() => {
+    if (activeCycle) {
+      document.title = `${minutes} : ${seconds}`;
+    }
+  }, [minutes, seconds]);
+
   console.log(activeCycle);
 
   function handleCreateNewCycle(data: newCycleData) {
@@ -84,7 +89,7 @@ export function Home() {
 
     SetCycles((state) => [...state, newCycle]); //adicionando um estado novo pegando o anterior e passando o novo
     SetActiveCycle(id);
-    setamountSecondsPass(0)
+    setamountSecondsPass(0);
     reset();
   }
 
