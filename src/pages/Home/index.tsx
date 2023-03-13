@@ -13,6 +13,7 @@ import {
 } from "../Home/styles";
 import { useForm } from "react-hook-form";
 import { Action } from "@remix-run/router";
+import { differenceInSeconds } from "date-fns";
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, "Informe a tarefa"),
@@ -45,11 +46,11 @@ export function Home() {
         minutesAmount: 0,
       },
     });
-    
+
  useEffect (() => {
         if(activeCycle){
           setInterval(()=> {
-
+              setamountSecondsPass(differenceInSeconds(new Date(), activeCycle.startDate))
           }, 1000)
         }
     }, []) 
