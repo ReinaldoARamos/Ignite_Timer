@@ -1,5 +1,5 @@
 import { Play, Watch } from "phosphor-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -26,12 +26,17 @@ interface Cycle {
   id: string;
   task: string;
   minutesAmout: number;
+  startDate: Date;
 } //criando interface dos ciclos
 
 export function Home() {
   const [cycles, SetCycles] = useState<Cycle[]>([]); //iniciando um estado que irá armazenar todos os ciclos
-  const [activeCycleId, SetActiveCycle] = useState<string | null>(null) //inicisndo o estado que vai verificar o estado ativo
-  const [ amountSecondsPass, setamountSecondsPass] = useState(0)
+  const [activeCycleId, SetActiveCycle] = useState<string | null>(null); //inicisndo o estado que vai verificar o estado ativo
+  const [amountSecondsPass, setamountSecondsPass] = useState(0);
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
+   
+  
+
   const { register, handleSubmit, watch, formState, reset } =
     useForm<newCycleData>({
       resolver: zodResolver(newCycleFormValidationSchema),
@@ -40,37 +45,43 @@ export function Home() {
         minutesAmount: 0,
       },
     });
+    
+ useEffect (() => {
+        if(activeCycle){
+          setInterval(()=> {
 
+          }, 1000)
+        }
+    }, []) 
+
+   
   type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
-const id =  String(new Date().getTime())
+  const id = String(new Date().getTime());
 
-const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
-const TotalSeconds = activeCycle ?  activeCycle.minutesAmout * 60 : 0 //´pega os minutos passados e retorna sem segundos
-const currentSeconds = activeCycle ?  TotalSeconds -  amountSecondsPass  : 0 //pega os totais de segundos e diminui pelo que passa
+  const TotalSeconds = activeCycle ? activeCycle.minutesAmout * 60 : 0; //´pega os minutos passados e retorna sem segundos
+  const currentSeconds = activeCycle ? TotalSeconds - amountSecondsPass : 0; //pega os totais de segundos e diminui pelo que passa
 
-const minutesAmount = Math.floor(currentSeconds / 60); //PEGA OS SEGUNDOS e converte em minutos 
-const secondsAmout = currentSeconds % 60; //pega o resto da divisao  
+  const minutesAmount = Math.floor(currentSeconds / 60); //PEGA OS SEGUNDOS e converte em minutos
+  const secondsAmout = currentSeconds % 60; //pega o resto da divisao
 
-const minutes = String(minutesAmount).padStart(2, '0');
-const seconds = String(secondsAmout).padStart(2, '0');
+  const minutes = String(minutesAmount).padStart(2, "0");
+  const seconds = String(secondsAmout).padStart(2, "0");
 
-console.log(activeCycle)
+  console.log(activeCycle);
 
   function handleCreateNewCycle(data: newCycleData) {
     const newCycle: Cycle = {
-        id,
-        task: data.task,
-        minutesAmout: data.minutesAmount,
+      id,
+      task: data.task,
+      minutesAmout: data.minutesAmount,
+      startDate: new Date(),
+    };
 
-    }
-
-    SetCycles((state) => [...state, newCycle]) //adicionando um estado novo pegando o anterior e passando o novo
-    SetActiveCycle(id)
+    SetCycles((state) => [...state, newCycle]); //adicionando um estado novo pegando o anterior e passando o novo
+    SetActiveCycle(id);
     reset();
-
   }
-
 
   const task = watch("task");
 
@@ -101,7 +112,7 @@ console.log(activeCycle)
               placeholder="00"
               min={5}
               step={5}
-              {...register("minutesAmount", { valueAsNumber: true })}
+              {...register("minutesAmount", { valueAsNumber: true })} //register
             />
 
             <span>minutos.</span>
