@@ -17,7 +17,7 @@ import { differenceInSeconds } from "date-fns";
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, "Informe a tarefa"),
-  minutesAmount: zod.number().min(5).max(60),
+  minutesAmount: zod.number().min(0.50).max(60),
 });
 /*
 O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
@@ -51,6 +51,7 @@ export function Home() {
       interval = setInterval(() => {
         setamountSecondsPass(
           differenceInSeconds(new Date(), activeCycle.startDate)
+          
         );
       }, 1000);
     }
@@ -75,7 +76,7 @@ export function Home() {
     if (activeCycle) {
       document.title = `${minutes} : ${seconds}`;
     }
-  }, [minutes, seconds]);
+  }, [minutes, seconds, activeCycle]);
 
   console.log(activeCycle);
 
