@@ -6,7 +6,7 @@ import { CountdownContainer, Separator } from "./styles";
 interface CountDownProps {
   activeCycle: any
 }
-export function CountDown() {
+export function CountDown({active} : CountDownProps) {
 
   const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const TotalSeconds = activeCycle ? activeCycle.minutesAmout * 60 : 0; // ´pega os minutos passados e retorna sem segundos
