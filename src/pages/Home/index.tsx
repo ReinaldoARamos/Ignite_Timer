@@ -58,8 +58,8 @@ export function Home() {
           activeCycle.startDate
         );
         if (SecondsDiff >= TotalSeconds) {
-          SetCycles(
-            cycles.map((cycle) => {
+          SetCycles(state => 
+            state.map((cycle) => {
               if (cycle.id === activeCycleId) {
                 return { ...cycle, FinishedDate: new Date() };
               } else {
@@ -75,7 +75,7 @@ export function Home() {
     return () => {
       clearInterval(interval);
     };
-  }, [activeCycle, TotalSeconds]);
+  }, [activeCycle, TotalSeconds, activeCycleId]);
 
   type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
   const id = String(new Date().getTime());
