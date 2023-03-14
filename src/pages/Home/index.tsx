@@ -60,8 +60,9 @@ export function Home() {
         if (SecondsDiff >= TotalSeconds) {
           SetCycles((state) =>
             state.map((cycle) => {
-              document.title = "Home"
+              
               if (cycle.id === activeCycleId) {
+                document.title = "Home"
                 return { ...cycle, FinishedDate: new Date() };
               } else {
                 return cycle;
