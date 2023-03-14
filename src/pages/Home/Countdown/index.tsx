@@ -1,6 +1,6 @@
-import { CountdownContainer, Separator } from "../styles";
+import { CountdownContainer, Separator } from "./styles";
 
-export function CounDown() {
+export function CountDown() {
   <CountdownContainer>
     <span>{minutes[0]}</span>
     <span>{minutes[1]}</span>

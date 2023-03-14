@@ -15,6 +15,8 @@ import {
 import { useForm } from "react-hook-form";
 import { Action } from "@remix-run/router";
 import { differenceInSeconds } from "date-fns";
+import { NewCycleForm } from "./NewCycleForm";
+import { CounDown } from "./Countdown";
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, "Informe a tarefa"),
@@ -133,6 +135,9 @@ export function Home() {
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
+
+        <NewCycleForm/>
+        <CountDown/>
         {activeCycle ? (
           <StopCountDownButton type="button" onClick={HandleInterruptedCycle}>
             <HandPalm size={20} id="teste" />
