@@ -60,6 +60,7 @@ export function Home() {
         if (SecondsDiff >= TotalSeconds) {
           SetCycles((state) =>
             state.map((cycle) => {
+              document.title = "Home"
               if (cycle.id === activeCycleId) {
                 return { ...cycle, FinishedDate: new Date() };
               } else {
@@ -116,7 +117,9 @@ export function Home() {
     SetCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
+          document.title = "Home"
           return { ...cycle, interruptedDate: new Date() };
+          
         } else {
           return cycle;
         }
