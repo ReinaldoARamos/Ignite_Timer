@@ -96,6 +96,11 @@ const BaseInput = styled.input`
   height: 2.5rem;
   font-size: 1.125rem;
   padding: 0 0.5rem;
+  &:disabled {
+    border-color: ${(props) => props.theme['gray-700']};
+    cursor: not-allowed;
+    color: ${(props) => props.theme['gray-700']};
+  }
 
   &:placeholder {
     color: ${(props) => props.theme['gray-500']};
