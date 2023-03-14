@@ -29,6 +29,7 @@ interface Cycle {
   task: string
   minutesAmout: number
   startDate: Date
+  interruptedDate?: Date
 } // criando interface dos ciclos
 
 export function Home() {
@@ -78,7 +79,7 @@ export function Home() {
     }
   }, [minutes, seconds, activeCycle])
 
-  console.log(activeCycle)
+  console.log(cycles)
 
   function handleCreateNewCycle(data: newCycleData) {
     const newCycle: Cycle = {
@@ -92,6 +93,19 @@ export function Home() {
     SetActiveCycle(id)
     setamountSecondsPass(0)
     reset()
+  }
+
+  function HandleInterruptedCycle() {
+    SetCycles(
+      cycles.map((cycle) => {
+        if (cycle.id === activeCycleId) {
+          return { ...cycle, interruptedDate: new Date() }
+        } else {
+          return cycle
+        }
+      }),
+    )
+    SetActiveCycle(null)
   }
 
   const task = watch('task')
@@ -141,7 +155,7 @@ export function Home() {
         </CountdownContainer>
 
         {activeCycle ? (
-          <StopCountDownButton type="button">
+          <StopCountDownButton type="button" onClick={HandleInterruptedCycle}>
             <HandPalm size={20} id="teste" />
             Interromper processo
           </StopCountDownButton>
