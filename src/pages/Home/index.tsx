@@ -15,16 +15,8 @@ import {
 import { useForm } from "react-hook-form";
 import { Action } from "@remix-run/router";
 import { differenceInSeconds } from "date-fns";
-import { NewCycleForm } from "./NewCycleForm";
-import { CounDown } from "./Countdown";
-
-const newCycleFormValidationSchema = zod.object({
-  task: zod.string().min(1, "Informe a tarefa"),
-  minutesAmount: zod.number().min(0.5).max(60),
-});
-/*
-O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
-que são geralmente usado com funções, como onchange, onblue e até onFocus */
+import { NewCycleForm } from "./components/NewCycleForm";
+import { CountDown } from "./components/Countdown";
 
 interface Cycle {
   id: string;
@@ -38,53 +30,7 @@ interface Cycle {
 export function Home() {
   const [cycles, SetCycles] = useState<Cycle[]>([]); // iniciando um estado que irá armazenar todos os ciclos
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null); // inicisndo o estado que vai verificar o estado ativo
-  const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
-  const TotalSeconds = activeCycle ? activeCycle.minutesAmout * 60 : 0; // ´pega os minutos passados e retorna sem segundos
-
-  const { register, handleSubmit, watch, formState, reset } =
-    useForm<newCycleData>({
-      resolver: zodResolver(newCycleFormValidationSchema),
-      defaultValues: {
-        task: "",
-        minutesAmount: 0,
-      },
-    });
-
-  useEffect(() => {
-    let interval: number;
-    if (activeCycle) {
-      interval = setInterval(() => {
-        const SecondsDiff = differenceInSeconds(
-          new Date(),
-          activeCycle.startDate
-        );
-        if (SecondsDiff >= TotalSeconds) {
-          SetCycles((state) =>
-            state.map((cycle) => {
-              if (cycle.id === activeCycleId) {
-                document.title = "Home";
-                return { ...cycle, FinishedDate: new Date() };
-              } else {
-                return cycle;
-              }
-            })
-          );
-          setamountSecondsPass(TotalSeconds);
-          clearInterval(interval);
-        } else {
-          setamountSecondsPass(SecondsDiff);
-        }
-      }, 1000);
-    }
-    return () => {
-      clearInterval(interval);
-    };
-  }, [activeCycle, TotalSeconds, activeCycleId]);
-
-  type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
-  const id = String(new Date().getTime());
-
   const currentSeconds = activeCycle ? TotalSeconds - amountSecondsPass : 0; // pega os totais de segundos e diminui pelo que passa
 
   const minutesAmount = Math.floor(currentSeconds / 60); // PEGA OS SEGUNDOS e converte em minutos
@@ -93,13 +39,14 @@ export function Home() {
   const minutes = String(minutesAmount).padStart(2, "0");
   const seconds = String(secondsAmout).padStart(2, "0");
 
+  const id = String(new Date().getTime());
+
+
   useEffect(() => {
     if (activeCycle) {
       document.title = `${minutes} : ${seconds}`;
     }
   }, [minutes, seconds, activeCycle]);
-
-  console.log(cycles);
 
   function handleCreateNewCycle(data: newCycleData) {
     const newCycle: Cycle = {
@@ -135,9 +82,8 @@ export function Home() {
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
-
-        <NewCycleForm/>
-        <CountDown/>
+        <NewCycleForm />
+        <CountDown />
         {activeCycle ? (
           <StopCountDownButton type="button" onClick={HandleInterruptedCycle}>
             <HandPalm size={20} id="teste" />
