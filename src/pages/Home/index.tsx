@@ -60,9 +60,8 @@ export function Home() {
         if (SecondsDiff >= TotalSeconds) {
           SetCycles((state) =>
             state.map((cycle) => {
-              
               if (cycle.id === activeCycleId) {
-                document.title = "Home"
+                document.title = "Home";
                 return { ...cycle, FinishedDate: new Date() };
               } else {
                 return cycle;
@@ -70,7 +69,7 @@ export function Home() {
             })
           );
           setamountSecondsPass(TotalSeconds);
-          clearInterval(interval)
+          clearInterval(interval);
         } else {
           setamountSecondsPass(SecondsDiff);
         }
@@ -118,9 +117,8 @@ export function Home() {
     SetCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
-          document.title = "Home"
+          document.title = "Home";
           return { ...cycle, interruptedDate: new Date() };
-          
         } else {
           return cycle;
         }
@@ -135,16 +133,6 @@ export function Home() {
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
-       
-
-        <CountdownContainer>
-          <span>{minutes[0]}</span>
-          <span>{minutes[1]}</span>
-          <Separator>:</Separator>
-          <span>{seconds[0]}</span>
-          <span>{seconds[1]}</span>
-        </CountdownContainer>
-
         {activeCycle ? (
           <StopCountDownButton type="button" onClick={HandleInterruptedCycle}>
             <HandPalm size={20} id="teste" />
