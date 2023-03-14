@@ -30,6 +30,7 @@ interface Cycle {
   minutesAmout: number;
   startDate: Date;
   interruptedDate?: Date;
+  FinishedDate?: Date;
 } // criando interface dos ciclos
 
 export function Home() {
@@ -60,15 +61,15 @@ export function Home() {
           SetCycles(
             cycles.map((cycle) => {
               if (cycle.id === activeCycleId) {
-                return { ...cycle, interruptedDate: new Date() };
+                return { ...cycle, FinishedDate: new Date() };
               } else {
                 return cycle;
               }
             })
           );
-          SetActiveCycle(null);
+        } else {
+          setamountSecondsPass(SecondsDiff);
         }
-        setamountSecondsPass(SecondsDiff);
       }, 1000);
     }
     return () => {
