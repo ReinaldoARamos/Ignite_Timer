@@ -67,6 +67,8 @@ export function Home() {
               }
             })
           );
+          setamountSecondsPass(TotalSeconds);
+          clearInterval(interval)
         } else {
           setamountSecondsPass(SecondsDiff);
         }
