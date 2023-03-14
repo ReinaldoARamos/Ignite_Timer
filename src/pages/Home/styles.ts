@@ -116,6 +116,12 @@ export const TaskInput = styled(BaseInput)`
 export const MinutesAmount = styled(BaseInput)`
   width: 4rem;
 `
-export const StopCountDownButton = styled(BaseCountDownButton)``
+export const StopCountDownButton = styled(BaseCountDownButton)`
+  background-color: ${(props) => props.theme['red-500']};
+
+  &:not(::disabled):hover {
+    color: ${(props) => props.theme['green-700']};
+  }
+`
 
 export const StartCountDownButton = styled(BaseCountDownButton)``
