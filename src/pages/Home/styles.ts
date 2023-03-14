@@ -129,6 +129,9 @@ export const MinutesAmount = styled(BaseInput)`
 export const StopCountDownButton = styled(BaseCountDownButton)`
   background-color: ${(props) => props.theme['red-500']};
 
+  &:hover {
+    background-color: ${(props) => props.theme['red-700']};
+  }
   &:not(::disabled):hover {
     color: ${(props) => props.theme['green-700']};
   }
