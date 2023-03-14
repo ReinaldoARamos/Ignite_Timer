@@ -3,15 +3,11 @@ import { useEffect, useState } from "react";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  CountdownContainer,
-  FormContainer,
   HomeContainer,
-  MinutesAmount,
-  Separator,
   StartCountDownButton,
   StopCountDownButton,
-  TaskInput,
 } from "../Home/styles";
+
 import { useForm } from "react-hook-form";
 import { Action } from "@remix-run/router";
 import { differenceInSeconds } from "date-fns";
@@ -40,7 +36,6 @@ export function Home() {
   const seconds = String(secondsAmout).padStart(2, "0");
 
   const id = String(new Date().getTime());
-
 
   useEffect(() => {
     if (activeCycle) {
@@ -83,7 +78,11 @@ export function Home() {
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <NewCycleForm />
-        <CountDown activeCycle={activeCycle}/>
+        <CountDown 
+        activeCycle={activeCycle}  
+        SetCycles={SetCycles}
+        activeCycleId={activeCycleId}
+        />
         {activeCycle ? (
           <StopCountDownButton type="button" onClick={HandleInterruptedCycle}>
             <HandPalm size={20} id="teste" />
