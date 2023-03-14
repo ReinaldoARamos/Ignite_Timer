@@ -54,7 +54,7 @@ export const Separator = styled.div`
   display: flex;
   justify-content: center;
 `
-export const StartCountDownButton = styled.button`
+export const BaseCountDownButton = styled.button`
   width: 100%;
 
   border: none;
@@ -116,32 +116,6 @@ export const TaskInput = styled(BaseInput)`
 export const MinutesAmount = styled(BaseInput)`
   width: 4rem;
 `
-export const StopCountDownButton = styled.button`
-  width: 100%;
+export const StopCountDownButton = styled(BaseCountDownButton)``
 
-  border: none;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  gap: 0.5rem;
-  padding: 1rem;
-
-  font-weight: bold;
-
-  background-color: ${(props) => props.theme['green-500']};
-
-  color: ${(props) => props.theme['gray-100']};
-  transition: 0.2s;
-
-  &:disabled {
-    background-color: ${(props) => props.theme['green-700']};
-    color: ${(props) => props.theme['gray-700']};
-    cursor: not-allowed;
-    #teste {
-      color: ${(props) => props.theme['gray-700']};
-      transition: 0.2s;
-    }
-  }
-`
+export const StartCountDownButton = styled(BaseCountDownButton)``
