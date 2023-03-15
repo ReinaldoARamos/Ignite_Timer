@@ -1,15 +1,15 @@
 import { createContext, useContext, useState } from "react";
 import { any } from "zod";
 
-const CyclesContext = createContext({} as any);
+const CyclesContext = createContext({} as any); 
 function NewCycleForm() {
-  let { activeCycle } = useContext(CyclesContext);
+  let { activeCycle, setActiveCycle } = useContext(CyclesContext);
 
   return (
     <div>
       <h1>newCycleForm: {activeCycle}</h1>
       <button  onClick={()=>{
-        activeCycle = 2
+       setActiveCycle("doridoridoridori")
       }}>
         Alterar ciclo
     </button>
