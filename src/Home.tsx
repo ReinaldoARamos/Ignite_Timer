@@ -1,19 +1,26 @@
-import { createContext, useContext } from "react"
+import { createContext, useContext } from "react";
 
 const CyclesContext = createContext({
-    activeCycle: 5
-})
+  activeCycle: "ohayo"
+});
+function NewCycleForm() {
+    let { activeCycle } = useContext(CyclesContext);
+  
+    return <h1>newCycleForm: {activeCycle}</h1>;
+  }
 
-function newCycleForm() {
-    let {activeCycle} = useContext(CyclesContext)
-
-    return(
-        <h1>
-            newCycleForm: {activeCycle}
-        </h1>
-    )
+function Coundown() {
+  let { activeCycle } = useContext(CyclesContext);
+  return <h1>newCycleForm: {activeCycle}</h1>;
 }
 
+
 export function Home() {
-    return(<h1>Home</h1>)
+  return (
+    <div>
+      [<h1>Home</h1>]
+      <NewCycleForm />
+      <Coundown/>
+    </div>
+  );
 }
