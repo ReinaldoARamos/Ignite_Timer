@@ -7,7 +7,7 @@ import { CountdownContainer, Separator } from "./styles";
 
 
 export function CountDown() {
-  const {activeCycle, activeCycleId } = useContext(CyclesContext)
+  const {activeCycle, activeCycleId, markCurrentCycleAsFinished } = useContext(CyclesContext)
   const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const TotalSeconds = activeCycle ? activeCycle.minutesAmout * 60 : 0; // ´pega os minutos passados e retorna sem segundos
  
@@ -35,16 +35,8 @@ export function CountDown() {
           activeCycle.startDate
         );
         if (SecondsDiff >= TotalSeconds) {
-          SetCycles((state) =>
-            state.map((cycle) => {
-              if (cycle.id === activeCycleId) {
-                document.title = "Home";
-                return { ...cycle, FinishedDate: new Date() };
-              } else {
-                return cycle;
-              }
-            })
-          );
+          markCurrentCycleAsFinished()
+
           setamountSecondsPass(TotalSeconds);
           clearInterval(interval);
         } else {
@@ -66,7 +58,7 @@ export function CountDown() {
         <Separator>:</Separator>
         <span>{seconds[0]}</span>
         <span>{seconds[1]}</span>
-      </CountdownContainer>;
+      </CountdownContainer>
     )
  
 }

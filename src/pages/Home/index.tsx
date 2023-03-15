@@ -26,6 +26,7 @@ interface Cycle {
 interface CyclesContextData{
   activeCycle: Cycle | undefined, //passando a interface do contexto como a interface cycle
   activeCycleId: string | null,
+  markCurrentCycleAsFinished: ()=>void
 
 }
 export const CyclesContext = createContext({} as CyclesContextData) //criando o contexto do ciclo
@@ -36,7 +37,18 @@ export function Home() {
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
   
 
-  
+  function markCurrentCycleAsFinished() {
+    SetCycles((state) =>
+    state.map((cycle) => {
+      if (cycle.id === activeCycleId) {
+        document.title = "Home";
+        return { ...cycle, FinishedDate: new Date() };
+      } else {
+        return cycle;
+      }
+    })
+  );
+  }
 
   function handleCreateNewCycle(data: newCycleData) {
     const newCycle: Cycle = {
@@ -72,7 +84,7 @@ export function Home() {
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
-        <CyclesContext.Provider value={{activeCycle, activeCycleId}}>
+        <CyclesContext.Provider value={{activeCycle, activeCycleId, markCurrentCycleAsFinished}}>
         <NewCycleForm />
         <CountDown/>
         </CyclesContext.Provider>
