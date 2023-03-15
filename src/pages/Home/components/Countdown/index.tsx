@@ -1,15 +1,30 @@
 import { differenceInSeconds } from "date-fns";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { any } from "zod";
+import { CyclesContext } from "../..";
 import { CountdownContainer, Separator } from "./styles";
 
 
 
 export function CountDown() {
-
+  const {activeCycle, activeCycleId } = useContext(CyclesContext)
   const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const TotalSeconds = activeCycle ? activeCycle.minutesAmout * 60 : 0; // ´pega os minutos passados e retorna sem segundos
+ 
+  const currentSeconds = activeCycle ? TotalSeconds - amountSecondsPass : 0; // pega os totais de segundos e diminui pelo que passa
+  const minutesAmount = Math.floor(currentSeconds / 60); // PEGA OS SEGUNDOS e converte em minutos
+  const secondsAmout = currentSeconds % 60; // pega o resto da divisao
 
+  const minutes = String(minutesAmount).padStart(2, "0");
+  const seconds = String(secondsAmout).padStart(2, "0");
+
+  const id = String(new Date().getTime());
+
+  useEffect(() => {
+    if (activeCycle) {
+      document.title = `${minutes} : ${seconds}`;
+    }
+  }, [minutes, seconds, activeCycle]);
 
   useEffect(() => {
     let interval: number;

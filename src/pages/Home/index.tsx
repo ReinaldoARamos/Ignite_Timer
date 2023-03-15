@@ -24,29 +24,19 @@ interface Cycle {
 } // criando interface dos ciclos 
 
 interface CyclesContextData{
-  activeCycle: Cycle | undefined //passando a interface do contexto como a interface cycle
+  activeCycle: Cycle | undefined, //passando a interface do contexto como a interface cycle
+  activeCycleId: string | null,
+
 }
-const CyclesContext = createContext({} as CyclesContextData) //criando o contexto do ciclo
+export const CyclesContext = createContext({} as CyclesContextData) //criando o contexto do ciclo
 
 export function Home() {
   const [cycles, SetCycles] = useState<Cycle[]>([]); // iniciando um estado que irá armazenar todos os ciclos
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null); // inicisndo o estado que vai verificar o estado ativo
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
-  const currentSeconds = activeCycle ? TotalSeconds - amountSecondsPass : 0; // pega os totais de segundos e diminui pelo que passa
+  
 
-  const minutesAmount = Math.floor(currentSeconds / 60); // PEGA OS SEGUNDOS e converte em minutos
-  const secondsAmout = currentSeconds % 60; // pega o resto da divisao
-
-  const minutes = String(minutesAmount).padStart(2, "0");
-  const seconds = String(secondsAmout).padStart(2, "0");
-
-  const id = String(new Date().getTime());
-
-  useEffect(() => {
-    if (activeCycle) {
-      document.title = `${minutes} : ${seconds}`;
-    }
-  }, [minutes, seconds, activeCycle]);
+  
 
   function handleCreateNewCycle(data: newCycleData) {
     const newCycle: Cycle = {
@@ -82,7 +72,7 @@ export function Home() {
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
-        <CyclesContext.Provider value={{activeCycle}}>
+        <CyclesContext.Provider value={{activeCycle, activeCycleId}}>
         <NewCycleForm />
         <CountDown/>
         </CyclesContext.Provider>
