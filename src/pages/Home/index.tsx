@@ -1,5 +1,5 @@
-import { HandPalm, Play, Watch } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { HandPalm, Play } from "phosphor-react";
+import { createContext, useEffect, useState } from "react";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -21,7 +21,12 @@ interface Cycle {
   startDate: Date;
   interruptedDate?: Date;
   FinishedDate?: Date;
-} // criando interface dos ciclos
+} // criando interface dos ciclos 
+
+interface CyclesContextData{
+  activeCycle: Cycle | undefined //passando a interface do contexto como a interface cycle
+}
+const CyclesContext = createContext({} as CyclesContextData) //criando o contexto do ciclo
 
 export function Home() {
   const [cycles, SetCycles] = useState<Cycle[]>([]); // iniciando um estado que irá armazenar todos os ciclos
@@ -77,12 +82,10 @@ export function Home() {
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
+        <CyclesContext.Provider value={{activeCycle}}>
         <NewCycleForm />
-        <CountDown 
-        activeCycle={activeCycle}  
-        SetCycles={SetCycles}
-        activeCycleId={activeCycleId}
-        />
+        <CountDown/>
+        </CyclesContext.Provider>
         {activeCycle ? (
           <StopCountDownButton type="button" onClick={HandleInterruptedCycle}>
             <HandPalm size={20} id="teste" />

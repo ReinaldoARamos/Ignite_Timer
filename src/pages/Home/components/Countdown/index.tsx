@@ -3,11 +3,9 @@ import { useEffect, useState } from "react";
 import { any } from "zod";
 import { CountdownContainer, Separator } from "./styles";
 
-interface CountDownProps {
-  activeCycle: any,
-  SetCycles: any,
-  activeCycleId: any
-export function CountDown({activeCycle, SetCycles, activeCycleId} : CountDownProps) {
+
+
+export function CountDown() {
 
   const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const TotalSeconds = activeCycle ? activeCycle.minutesAmout * 60 : 0; // ´pega os minutos passados e retorna sem segundos
