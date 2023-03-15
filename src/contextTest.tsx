@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { any } from "zod";
 
 const CyclesContext = createContext({} as any); 
+
 function NewCycleForm() {
   let { activeCycle, setActiveCycle } = useContext(CyclesContext);
 
