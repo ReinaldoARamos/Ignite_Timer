@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom' // temos que esperifdicar as ro
 import { CyclesContext } from './pages/Home'
 import { createContext } from 'react'
 
-export const CyclesContext = createContext({} as CyclesContextData); // criando o contexto do ciclo
+
 
 export function App() {
 
