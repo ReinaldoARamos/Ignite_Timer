@@ -28,11 +28,12 @@ type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
 //---------------------------------------------
 
 export function Home() {
-  const [cycles, SetCycles] = useState<Cycle[]>([]); // iniciando um estado que irá armazenar todos os ciclos
-  const [activeCycleId, SetActiveCycle] = useState<string | null>(null); // inicisndo o estado que vai verificar o estado ativo
-  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
-  const [amountSecondsPass, setamountSecondsPass] = useState(0);
+
+
+
   const newCycleForm = useForm<newCycleData>({
+
+    
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
       task: "",
@@ -44,20 +45,6 @@ export function Home() {
 
   const { handleSubmit, watch, reset } = newCycleForm;
 
-  function markCurrentCycleAsFinished() {
-    SetCycles((state) =>
-      state.map((cycle) => {
-        if (cycle.id === activeCycleId) {
-          document.title = "Home";
-          return { ...cycle, FinishedDate: new Date() };
-        } else {
-          return cycle;
-        }
-      })
-    );
-  }
-
-  //---------------------------------------------
 
   function handleCreateNewCycle(data: newCycleData) {
     const newCycle: Cycle = {
@@ -93,10 +80,7 @@ export function Home() {
   const task = watch("task");
   //---------------------------------------------
 
-  function setSecondsPass(seconds: number) {
-    setamountSecondsPass(seconds);
-  }
-
+ 
   //---------------------------------------------
 
   return (
