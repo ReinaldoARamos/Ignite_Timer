@@ -10,12 +10,13 @@ import {
 
 //---------------------------------------------
 
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 //import { Action } from "@remix-run/router";
 //import { differenceInSeconds } from "date-fns";
 import { NewCycleForm } from "./components/NewCycleForm";
 import { CountDown } from "./components/Countdown";
-import { FormProvider } from "react-hook-form/dist/useFormContext";
+//import { FormProvider } from "react-hook-form/dist/useFormContext";
+
 
 interface Cycle {
   id: string;
@@ -33,7 +34,8 @@ interface CyclesContextData {
   activeCycle: Cycle | undefined; // passando a interface do contexto como a interface cycle
   activeCycleId: string | null;
   markCurrentCycleAsFinished: () => void;
-  amountSecondsPass: number
+  amountSecondsPass: number;
+  setSecondsPass: (seconds: number) => void;
 }
 
 //---------------------------------------------
@@ -116,12 +118,19 @@ export function Home() {
   const task = watch("task");
   //---------------------------------------------
 
+
+ function setSecondsPass(seconds: number) {
+  setamountSecondsPass(seconds);
+ }
+  
+  //---------------------------------------------
+
   return (
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <CyclesContext.Provider
-          value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished, amountSecondsPass}}
+          value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished, amountSecondsPass, setSecondsPass}}
         >
         <FormProvider {...newCycleForm}>
         <NewCycleForm />

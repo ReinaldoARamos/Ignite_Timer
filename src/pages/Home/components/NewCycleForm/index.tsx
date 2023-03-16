@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Action } from '@remix-run/router'
 import { useContext } from 'react'
 import { CyclesContext } from '../..'
-import { useFormContext } from 'react-hook-form/dist/useFormContext'
+import { useFormContext } from 'react-hook-form'
 
 export function NewCycleForm() {
   //const { activeCycle } = useContext({ CyclesContext })
