@@ -1,27 +1,30 @@
-import { FormContainer, MinutesAmount, TaskInput } from "./styles";
-import * as zod from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Action } from "@remix-run/router";
+import { FormContainer, MinutesAmount, TaskInput } from './styles'
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { Action } from '@remix-run/router'
+import { useContext } from 'react'
+import { CyclesContext } from '../..'
 
 export function NewCycleForm() {
+  const { activeCycle } = useContext(CyclesContext)
   const newCycleFormValidationSchema = zod.object({
-    task: zod.string().min(1, "Informe a tarefa"),
+    task: zod.string().min(1, 'Informe a tarefa'),
     minutesAmount: zod.number().min(0.5).max(60),
-  });
+  })
   /*
   O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
   que são geralmente usado com funções, como onchange, onblue e até onFocus */
-  
+
   const { register, handleSubmit, watch, formState, reset } =
     useForm<newCycleData>({
       resolver: zodResolver(newCycleFormValidationSchema),
       defaultValues: {
-        task: "",
+        task: '',
         minutesAmount: 0,
       },
-    });
-    type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
+    })
+  type newCycleData = zod.infer<typeof newCycleFormValidationSchema>
   return (
     <FormContainer>
       <div>
@@ -31,7 +34,7 @@ export function NewCycleForm() {
           list="task-suggestgions"
           placeholder="Definir tarefa  "
           disabled={!!activeCycle}
-          {...register("task")}
+          {...register('task')}
           // usando o ... a gente retorna todos os métodos dentro do register
         />
         <datalist id="task-suggestgions">
@@ -48,11 +51,11 @@ export function NewCycleForm() {
           min={5}
           step={5}
           disabled={!!activeCycle}
-          {...register("minutesAmount", { valueAsNumber: true })} // register
+          {...register('minutesAmount', { valueAsNumber: true })} // register
         />
 
         <span>minutos.</span>
       </div>
     </FormContainer>
-  );
+  )
 }
