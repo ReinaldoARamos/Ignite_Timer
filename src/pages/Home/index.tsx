@@ -24,6 +24,7 @@ interface Cycle {
   startDate: Date;
   interruptedDate?: Date;
   FinishedDate?: Date;
+  amountSecondsPass: number
 } // criando interface dos ciclos
 
 //---------------------------------------------
@@ -32,6 +33,7 @@ interface CyclesContextData {
   activeCycle: Cycle | undefined; // passando a interface do contexto como a interface cycle
   activeCycleId: string | null;
   markCurrentCycleAsFinished: () => void;
+  amountSecondsPass: number
 }
 
 //---------------------------------------------
@@ -47,10 +49,11 @@ type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
 //---------------------------------------------
 
 export function Home() {
+  
   const [cycles, SetCycles] = useState<Cycle[]>([]); // iniciando um estado que irá armazenar todos os ciclos
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null); // inicisndo o estado que vai verificar o estado ativo
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
-
+  const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const newCycleForm = useForm<newCycleData>({
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
@@ -84,6 +87,8 @@ export function Home() {
       task: data.task,
       minutesAmout: data.minutesAmount,
       startDate: new Date(),
+      amountSecondsPass: amountSecondsPass
+      
     };
 
     SetCycles((state) => [...state, newCycle]); // adicionando um estado novo pegando o anterior e passando o novo
@@ -116,7 +121,7 @@ export function Home() {
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <CyclesContext.Provider
-          value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished }}
+          value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished, amountSecondsPass}}
         >
         <FormProvider {...newCycleForm}>
         <NewCycleForm />

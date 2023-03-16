@@ -9,7 +9,6 @@ import { CountdownContainer, Separator } from "./styles";
 export function CountDown() {
   const { activeCycle, activeCycleId, markCurrentCycleAsFinished } =
     useContext(CyclesContext);
-  const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const TotalSeconds = activeCycle ? activeCycle.minutesAmout * 60 : 0; // ´pega os minutos passados e retorna sem segundos
 
   const currentSeconds = activeCycle ? TotalSeconds - amountSecondsPass : 0; // pega os totais de segundos e diminui pelo que passa
