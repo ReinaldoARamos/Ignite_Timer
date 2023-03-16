@@ -1,81 +1,81 @@
-import { HandPalm, Play } from 'phosphor-react'
-import { createContext, useEffect, useState, useContext } from 'react'
-import * as zod from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { HandPalm, Play } from "phosphor-react";
+import { createContext, useEffect, useState, useContext } from "react";
+import * as zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   HomeContainer,
   StartCountDownButton,
   StopCountDownButton,
-} from '../Home/styles'
+} from "../Home/styles";
 
-//---------
+//---------------------------------------------
 
-import { useForm } from 'react-hook-form'
-import { Action } from '@remix-run/router'
-import { differenceInSeconds } from 'date-fns'
-import { NewCycleForm } from './components/NewCycleForm'
-import { CountDown } from './components/Countdown'
+import { useForm } from "react-hook-form";
+//import { Action } from "@remix-run/router";
+//import { differenceInSeconds } from "date-fns";
+import { NewCycleForm } from "./components/NewCycleForm";
+import { CountDown } from "./components/Countdown";
 
 interface Cycle {
-  id: string
-  task: string
-  minutesAmout: number
-  startDate: Date
-  interruptedDate?: Date
-  FinishedDate?: Date
+  id: string;
+  task: string;
+  minutesAmout: number;
+  startDate: Date;
+  interruptedDate?: Date;
+  FinishedDate?: Date;
 } // criando interface dos ciclos
 
-//---------
+//---------------------------------------------
 
 interface CyclesContextData {
-  activeCycle: Cycle | undefined // passando a interface do contexto como a interface cycle
-  activeCycleId: string | null
-  markCurrentCycleAsFinished: () => void
+  activeCycle: Cycle | undefined; // passando a interface do contexto como a interface cycle
+  activeCycleId: string | null;
+  markCurrentCycleAsFinished: () => void;
 }
 
-//---------
-export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
-const id = String(new Date().getTime())
+//---------------------------------------------
+
+export const CyclesContext = createContext({} as CyclesContextData); // criando o contexto do ciclo
+const id = String(new Date().getTime());
 const newCycleFormValidationSchema = zod.object({
-  task: zod.string().min(1, 'Informe a tarefa'),
+  task: zod.string().min(1, "Informe a tarefa"),
   minutesAmount: zod.number().min(0.5).max(60),
-})
-type newCycleData = zod.infer<typeof newCycleFormValidationSchema>
-//------------------
+});
+type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
+
+//---------------------------------------------
 
 export function Home() {
-  const [cycles, SetCycles] = useState<Cycle[]>([]) // iniciando um estado que irá armazenar todos os ciclos
-  const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
-  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+  const [cycles, SetCycles] = useState<Cycle[]>([]); // iniciando um estado que irá armazenar todos os ciclos
+  const [activeCycleId, SetActiveCycle] = useState<string | null>(null); // inicisndo o estado que vai verificar o estado ativo
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
 
-  const newCycleForm =
-    useForm<newCycleData>({
-      resolver: zodResolver(newCycleFormValidationSchema),
-      defaultValues: {
-        task: '',
-        minutesAmount: 0,
-      },
-    })
+  const newCycleForm = useForm<newCycleData>({
+    resolver: zodResolver(newCycleFormValidationSchema),
+    defaultValues: {
+      task: "",
+      minutesAmount: 0,
+    },
+  });
 
-//------------------
+  //---------------------------------------------
 
-const {handleSubmit, watch, reset} = newCycleForm
+  const { handleSubmit, watch, reset } = newCycleForm;
 
-  
-function markCurrentCycleAsFinished() {
+  function markCurrentCycleAsFinished() {
     SetCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
-          document.title = 'Home'
-          return { ...cycle, FinishedDate: new Date() }
+          document.title = "Home";
+          return { ...cycle, FinishedDate: new Date() };
         } else {
-          return cycle
+          return cycle;
         }
-      }),
-    )
+      })
+    );
   }
 
-//---------
+  //---------------------------------------------
 
   function handleCreateNewCycle(data: newCycleData) {
     const newCycle: Cycle = {
@@ -83,33 +83,32 @@ function markCurrentCycleAsFinished() {
       task: data.task,
       minutesAmout: data.minutesAmount,
       startDate: new Date(),
-    }
+    };
 
-    SetCycles((state) => [...state, newCycle]) // adicionando um estado novo pegando o anterior e passando o novo
-    SetActiveCycle(id)
-    setamountSecondsPass(0)
-    reset()
+    SetCycles((state) => [...state, newCycle]); // adicionando um estado novo pegando o anterior e passando o novo
+    SetActiveCycle(id);
+    setamountSecondsPass(0);
+    reset();
   }
 
-//---------
+  //---------------------------------------------
 
   function HandleInterruptedCycle() {
     SetCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
-          document.title = 'Home'
-          return { ...cycle, interruptedDate: new Date() }
+          document.title = "Home";
+          return { ...cycle, interruptedDate: new Date() };
         } else {
-          return cycle
+          return cycle;
         }
-      }),
-    )
-    SetActiveCycle(null)
+      })
+    );
+    SetActiveCycle(null);
   }
 
-  const task = watch('task')
-
-  //---------
+  const task = watch("task");
+  //---------------------------------------------
 
   return (
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
@@ -134,5 +133,5 @@ function markCurrentCycleAsFinished() {
         )}
       </form>
     </HomeContainer>
-  )
+  );
 }

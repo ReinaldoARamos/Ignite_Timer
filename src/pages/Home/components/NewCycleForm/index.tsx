@@ -13,6 +13,8 @@ export function NewCycleForm() {
   O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
   que são geralmente usado com funções, como onchange, onblue e até onFocus */
 
+  //---------------------------------------------
+  
   return (
     <FormContainer>
       <div>
