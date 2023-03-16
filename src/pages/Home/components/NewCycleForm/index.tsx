@@ -7,24 +7,12 @@ import { useContext } from 'react'
 import { CyclesContext } from '../..'
 
 export function NewCycleForm() {
-  const { activeCycle } = useContext(CyclesContext)
-  const newCycleFormValidationSchema = zod.object({
-    task: zod.string().min(1, 'Informe a tarefa'),
-    minutesAmount: zod.number().min(0.5).max(60),
-  })
+  const { activeCycle } = useContext({ CyclesContext })
+
   /*
   O Register é uma função que vem junto do hook form, atravé dela temos diversos acessos a outros métodos
   que são geralmente usado com funções, como onchange, onblue e até onFocus */
 
-  const { register, handleSubmit, watch, formState, reset } =
-    useForm<newCycleData>({
-      resolver: zodResolver(newCycleFormValidationSchema),
-      defaultValues: {
-        task: '',
-        minutesAmount: 0,
-      },
-    })
-  type newCycleData = zod.infer<typeof newCycleFormValidationSchema>
   return (
     <FormContainer>
       <div>

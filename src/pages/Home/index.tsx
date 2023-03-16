@@ -1,5 +1,5 @@
 import { HandPalm, Play } from 'phosphor-react'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState, useContext } from 'react'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -29,11 +29,25 @@ interface CyclesContextData {
   markCurrentCycleAsFinished: () => void
 }
 export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
-
+const id = String(new Date().getTime())
+const newCycleFormValidationSchema = zod.object({
+  task: zod.string().min(1, 'Informe a tarefa'),
+  minutesAmount: zod.number().min(0.5).max(60),
+})
+type newCycleData = zod.infer<typeof newCycleFormValidationSchema>
 export function Home() {
   const [cycles, SetCycles] = useState<Cycle[]>([]) // iniciando um estado que irá armazenar todos os ciclos
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+
+  const { register, handleSubmit, watch, formState, reset } =
+    useForm<newCycleData>({
+      resolver: zodResolver(newCycleFormValidationSchema),
+      defaultValues: {
+        task: '',
+        minutesAmount: 0,
+      },
+    })
 
   function markCurrentCycleAsFinished() {
     SetCycles((state) =>
