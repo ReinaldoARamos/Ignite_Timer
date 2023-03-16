@@ -20,6 +20,7 @@ interface Cycle {
   interruptedDate?: Date;
   FinishedDate?: Date;
   amountSecondsPass: number;
+  
 } // criando interface dos ciclos
 
 //---------------------------------------------
@@ -32,9 +33,12 @@ export function CyclesContextProvider() {
   const [amountSecondsPass, setamountSecondsPass] = useState(0);
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
 
+  const id = String(new Date().getTime());
+
   function setSecondsPass(seconds: number) {
     setamountSecondsPass(seconds);
   }
+
 
   function markCurrentCycleAsFinished() {
     SetCycles((state) =>
@@ -50,6 +54,37 @@ export function CyclesContextProvider() {
   }
 
   //---------------------------------------------
+  function CreateNewCycle(data: newCycleData) {
+    const newCycle: Cycle = {
+      id,
+      task: data.task,
+      minutesAmout: data.minutesAmount,
+      startDate: new Date(),
+      amountSecondsPass: amountSecondsPass,
+    };
+
+    SetCycles((state) => [...state, newCycle]); // adicionando um estado novo pegando o anterior e passando o novo
+    SetActiveCycle(id);
+    setamountSecondsPass(0);
+    reset();
+  }
+
+  //---------------------------------------------
+
+  function InterruptedCycle() {
+    SetCycles((state) =>
+      state.map((cycle) => {
+        if (cycle.id === activeCycleId) {
+          document.title = "Home";
+          return { ...cycle, interruptedDate: new Date() };
+        } else {
+          return cycle;
+        }
+      })
+    );
+    SetActiveCycle(null);
+  }
+
 
   <CyclesContext.Provider
     value={{

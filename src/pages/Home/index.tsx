@@ -17,8 +17,6 @@ import { NewCycleForm } from "./components/NewCycleForm";
 import { CountDown } from "./components/Countdown";
 //import { FormProvider } from "react-hook-form/dist/useFormContext";
 
-
-const id = String(new Date().getTime());
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, "Informe a tarefa"),
   minutesAmount: zod.number().min(0.5).max(60),
@@ -28,12 +26,7 @@ type newCycleData = zod.infer<typeof newCycleFormValidationSchema>;
 //---------------------------------------------
 
 export function Home() {
-
-
-
   const newCycleForm = useForm<newCycleData>({
-
-    
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
       task: "",
@@ -45,42 +38,9 @@ export function Home() {
 
   const { handleSubmit, watch, reset } = newCycleForm;
 
-
-  function handleCreateNewCycle(data: newCycleData) {
-    const newCycle: Cycle = {
-      id,
-      task: data.task,
-      minutesAmout: data.minutesAmount,
-      startDate: new Date(),
-      amountSecondsPass: amountSecondsPass,
-    };
-
-    SetCycles((state) => [...state, newCycle]); // adicionando um estado novo pegando o anterior e passando o novo
-    SetActiveCycle(id);
-    setamountSecondsPass(0);
-    reset();
-  }
-
-  //---------------------------------------------
-
-  function HandleInterruptedCycle() {
-    SetCycles((state) =>
-      state.map((cycle) => {
-        if (cycle.id === activeCycleId) {
-          document.title = "Home";
-          return { ...cycle, interruptedDate: new Date() };
-        } else {
-          return cycle;
-        }
-      })
-    );
-    SetActiveCycle(null);
-  }
-
   const task = watch("task");
   //---------------------------------------------
 
- 
   //---------------------------------------------
 
   return (
