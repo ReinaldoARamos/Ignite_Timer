@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 //import { differenceInSeconds } from "date-fns";
 import { NewCycleForm } from "./components/NewCycleForm";
 import { CountDown } from "./components/Countdown";
+import { FormProvider } from "react-hook-form/dist/useFormContext";
 
 interface Cycle {
   id: string;
@@ -117,9 +118,14 @@ export function Home() {
         <CyclesContext.Provider
           value={{ activeCycle, activeCycleId, markCurrentCycleAsFinished }}
         >
-          <NewCycleForm />
+        <FormProvider {...newCycleForm}>
+        <NewCycleForm />
+        </FormProvider>
+
           <CountDown />
+        
         </CyclesContext.Provider>
+        
         {activeCycle ? (
           <StopCountDownButton type="button" onClick={HandleInterruptedCycle}>
             <HandPalm size={20} id="teste" />
