@@ -37,9 +37,17 @@ export function Home() {
     },
   })
 
+  function handleCreateNewCycle(data: newCycleData) {
+    CreateNewCycle(data);
+    reset()
+    //função que chama outra fução,. recebe os dados do newCycle data que por sua vez está ligado ao cicle,
+    //pegando junto os métodos
+    
+
+  }
   // ---------------------------------------------
 
-  const { handleSubmit, watch /* reset */ } = newCycleForm
+  const { handleSubmit, watch , reset  } = newCycleForm
 
   const task = watch('task')
   // ---------------------------------------------
@@ -50,7 +58,7 @@ export function Home() {
     // FORM PROVIDER PASSOU PARA O NEWCYCLEFORM TODOS OS ATRIBUTOS DE FORM
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
-      <form onSubmit={handleSubmit(CreateNewCycle)} action="">
+      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <FormProvider {...newCycleForm}>
           <NewCycleForm />
         </FormProvider>

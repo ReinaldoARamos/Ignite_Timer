@@ -77,7 +77,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
     SetCycles((state) => [...state, newCycle]) // adicionando um estado novo pegando o anterior e passando o novo
     SetActiveCycle(id)
     setamountSecondsPass(0)
-    //  reset()
+  
   }
 
   // ---------------------------------------------
