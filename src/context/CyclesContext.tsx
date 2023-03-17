@@ -62,6 +62,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
         }
       }),
     )
+    SetActiveCycle(null)
   }
 
   // ---------------------------------------------
