@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 
 // ---------------------------------------------
 
@@ -6,18 +6,6 @@ interface CreateCycleData {
   // dados pra passar no createNewCycle
   task: string
   minutesAmount: number
-}
-
-// ---------------------------------------------
-
-interface CyclesContextData {
-  activeCycle: Cycle | undefined // passando a interface do contexto como a interface cycle
-  activeCycleId: string | null
-  markCurrentCycleAsFinished: () => void
-  amountSecondsPass: number
-  setSecondsPass: (seconds: number) => void
-  CreateNewCycle: (data: CreateCycleData) => void
-  InterruptedCycle: () => void
 }
 
 // ---------------------------------------------
@@ -32,11 +20,28 @@ interface Cycle {
   amountSecondsPass: number
 } // criando interface dos ciclos
 
+interface CyclesContextData {
+  activeCycle: Cycle | undefined // passando a interface do contexto como a interface cycle
+  activeCycleId: string | null
+  markCurrentCycleAsFinished: () => void
+  amountSecondsPass: number
+  setSecondsPass: (seconds: number) => void
+  CreateNewCycle: (data: CreateCycleData) => void
+  InterruptedCycle: () => void
+}
+
+// ---------------------------------------------
+interface CyclesContextProviderProps {
+  // children é um atributo que passamos nop provider para ele reconhecer os atribuos por volta dele
+  children: ReactNode // tipagem usada no children, vale para qualquer HTML válido que possa ser passado nochildren
+}
 // ---------------------------------------------
 
 export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
 
-export function CyclesContextProvider() {
+export function CyclesContextProvider({
+  children,
+}: CyclesContextProviderProps) {
   const [cycles, SetCycles] = useState<Cycle[]>([]) // iniciando um estado que irá armazenar todos os ciclos
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
   const [amountSecondsPass, setamountSecondsPass] = useState(0)
@@ -104,6 +109,6 @@ export function CyclesContextProvider() {
       InterruptedCycle,
     }}
   >
-    -
+    {children}
   </CyclesContext.Provider>
 }
