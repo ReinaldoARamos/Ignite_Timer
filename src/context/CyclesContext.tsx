@@ -28,6 +28,7 @@ interface CyclesContextData {
   setSecondsPass: (seconds: number) => void
   CreateNewCycle: (data: CreateCycleData) => void
   InterruptedCycle: () => void
+  cycles: Cycle[]
 }
 
 // ---------------------------------------------
@@ -97,6 +98,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
   return (
     <CyclesContext.Provider
       value={{
+        cycles,
         activeCycle,
         activeCycleId,
         markCurrentCycleAsFinished,
