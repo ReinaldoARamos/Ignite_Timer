@@ -1,9 +1,9 @@
-import { useContext } from 'react'
-import { CyclesContext } from '../../context/CyclesContext'
-import { HistoryContainer, HistoryList, StatusColor } from './styles'
+import { useContext } from "react";
+import { CyclesContext } from "../../context/CyclesContext";
+import { HistoryContainer, HistoryList, StatusColor } from "./styles";
 
 export function History() {
-  const { cycles } = useContext(CyclesContext)
+  const { cycles } = useContext(CyclesContext);
   return (
     <HistoryContainer>
       <h1>Meu histórico</h1>
@@ -19,33 +19,21 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <StatusColor StatusColor="yellow">em andamento</StatusColor>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <StatusColor StatusColor="green">Concluído</StatusColor>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <StatusColor StatusColor="red">Interrompido</StatusColor>
-              </td>
-            </tr>
+            {cycles.map((cycle) => {
+              return (
+                <tr key={cycle.id}>
+                  <td>Tarefa</td>
+                  <td>20 minutos</td>
+                  <td>Há 2 meses</td>
+                  <td>
+                    <StatusColor StatusColor="green">Concluído</StatusColor>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </HistoryList>
     </HistoryContainer>
-  )
+  );
 }
