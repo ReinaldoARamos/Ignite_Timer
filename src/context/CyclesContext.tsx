@@ -31,17 +31,14 @@ interface CyclesContextData {
 }
 
 // ---------------------------------------------
-interface CyclesContextProviderProps {
-  // children é um atributo que passamos nop provider para ele reconhecer os atribuos por volta dele
-  children: ReactNode // tipagem usada no children, vale para qualquer HTML válido que possa ser passado nochildren
-}
-// ---------------------------------------------
 
+// ---------------------------------------------
+interface contextProviderProps {
+  children: ReactNode
+}
 export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
 
-export function CyclesContextProvider({
-  children,
-}: CyclesContextProviderProps) {
+export function CyclesContextProvider({ children }: contextProviderProps) {
   const [cycles, SetCycles] = useState<Cycle[]>([]) // iniciando um estado que irá armazenar todos os ciclos
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
   const [amountSecondsPass, setamountSecondsPass] = useState(0)
@@ -97,18 +94,19 @@ export function CyclesContextProvider({
     )
     SetActiveCycle(null)
   }
-
-  ;<CyclesContext.Provider
-    value={{
-      activeCycle,
-      activeCycleId,
-      markCurrentCycleAsFinished,
-      amountSecondsPass,
-      setSecondsPass,
-      CreateNewCycle,
-      InterruptedCycle,
-    }}
-  >
-    {children}
-  </CyclesContext.Provider>
+  return (
+    <CyclesContext.Provider
+      value={{
+        activeCycle,
+        activeCycleId,
+        markCurrentCycleAsFinished,
+        amountSecondsPass,
+        setSecondsPass,
+        CreateNewCycle,
+        InterruptedCycle,
+      }}
+    >
+      {children}
+    </CyclesContext.Provider>
+  )
 }
