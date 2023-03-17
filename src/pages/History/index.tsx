@@ -28,7 +28,18 @@ export function History() {
                   <td>
                    {cycle.FinishedDate && (
                    <StatusColor StatusColor="green">Concluído</StatusColor>)}
+
+                    {cycle.interruptedDate && (
+                   <StatusColor StatusColor="red">Interrompido</StatusColor>)}
+                  
+                    
+                  {(!cycle.FinishedDate && !cycle.interruptedDate) && (
+                   <StatusColor StatusColor="yellow">Em Andamento</StatusColor>)}
                   </td>
+                
+                  
+
+                  
                 </tr>
               );
             })}
