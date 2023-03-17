@@ -22,11 +22,12 @@ export function History() {
             {cycles.map((cycle) => {
               return (
                 <tr key={cycle.id}>
-                  <td>Tarefa</td>
-                  <td>20 minutos</td>
-                  <td>Há 2 meses</td>
+                  <td>{cycle.task}</td>
+                  <td>{cycle.minutesAmout}</td>
+                  <td>{cycle.startDate.toISOString()}</td>
                   <td>
-                    <StatusColor StatusColor="green">Concluído</StatusColor>
+                   {cycle.FinishedDate && (
+                   <StatusColor StatusColor="green">Concluído</StatusColor>)}
                   </td>
                 </tr>
               );
