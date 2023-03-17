@@ -1,5 +1,5 @@
 import { HandPalm, Play } from 'phosphor-react'
-import { createContext, useEffect, useState, useContext } from 'react'
+import { /* createContext, useEffect, useState, */ useContext } from 'react'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -27,7 +27,8 @@ type newCycleData = zod.infer<typeof newCycleFormValidationSchema>
 // ---------------------------------------------
 
 export function Home() {
-  const { activeCycle, InterruptedCycle } = useContext(CyclesContext)
+  const { activeCycle, InterruptedCycle, CreateNewCycle } =
+    useContext(CyclesContext)
   const newCycleForm = useForm<newCycleData>({
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
@@ -49,7 +50,7 @@ export function Home() {
     // FORM PROVIDER PASSOU PARA O NEWCYCLEFORM TODOS OS ATRIBUTOS DE FORM
     // aqui no handleSubmit o HandleCreate new Cyle que pega os dados no Onsubmit
     <HomeContainer>
-      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
+      <form onSubmit={handleSubmit(CreateNewCycle)} action="">
         <FormProvider {...newCycleForm}>
           <NewCycleForm />
         </FormProvider>
@@ -57,7 +58,7 @@ export function Home() {
         <CountDown />
 
         {activeCycle ? (
-          <StopCountDownButton type="button" onClick={HandleInterruptedCycle}>
+          <StopCountDownButton type="button" onClick={InterruptedCycle}>
             <HandPalm size={20} id="teste" />
             Interromper processo
           </StopCountDownButton>
