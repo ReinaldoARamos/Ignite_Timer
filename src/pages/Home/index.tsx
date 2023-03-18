@@ -38,16 +38,14 @@ export function Home() {
   })
 
   function handleCreateNewCycle(data: newCycleData) {
-    CreateNewCycle(data);
+    CreateNewCycle(data)
     reset()
-    //função que chama outra fução,. recebe os dados do newCycle data que por sua vez está ligado ao cicle,
-    //pegando junto os métodos
-    
-
+    // função que chama outra fução,. recebe os dados do newCycle data que por sua vez está ligado ao cicle,
+    // pegando junto os métodos
   }
   // ---------------------------------------------
 
-  const { handleSubmit, watch , reset  } = newCycleForm
+  const { handleSubmit, watch, reset } = newCycleForm
 
   const task = watch('task')
   // ---------------------------------------------

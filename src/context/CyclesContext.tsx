@@ -40,8 +40,10 @@ interface contextProviderProps {
 export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
 
 export function CyclesContextProvider({ children }: contextProviderProps) {
-  const [cycles, SetCycles] = useReducer(
+  const [cycles, dispatch] = useReducer(
     (state: Cycle[] /* valor atual da variavel */, action: any) => {
+      console.log(cycles)
+      console.log(action)
       return state
     },
     [],
