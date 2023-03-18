@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useReducer, useState } from 'react'
 
 // ---------------------------------------------
 
@@ -40,7 +40,12 @@ interface contextProviderProps {
 export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
 
 export function CyclesContextProvider({ children }: contextProviderProps) {
-  const [cycles, SetCycles] = useState<Cycle[]>([]) // iniciando um estado que irá armazenar todos os ciclos
+  const [cycles, SetCycles] = useReducer(
+    (state: Cycle[] /* valor atual da variavel */, action: any) => {
+      return state
+    },
+    [],
+  )
   const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
   const [amountSecondsPass, setamountSecondsPass] = useState(0)
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
@@ -78,7 +83,6 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
     SetCycles((state) => [...state, newCycle]) // adicionando um estado novo pegando o anterior e passando o novo
     SetActiveCycle(id)
     setamountSecondsPass(0)
-  
   }
 
   // ---------------------------------------------
