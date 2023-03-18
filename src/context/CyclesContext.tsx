@@ -82,7 +82,12 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
       startDate: new Date(),
       amountSecondsPass,
     }
-    dispatch()
+    dispatch({
+      type: 'ADD_NEW_CYCLE',
+      payload: {
+        data: newCycle,
+      },
+    })
     // SetCycles((state) => [...state, newCycle]) // adicionando um estado novo pegando o anterior e passando o novo
     SetActiveCycle(id)
     setamountSecondsPass(0)
@@ -91,6 +96,13 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
   // ---------------------------------------------
 
   function InterruptedCycle() {
+    dispatch({
+      type: 'INTERRUPT_CURRENT_CYCLE',
+      payload: {
+        data: activeCycleId,
+      },
+    })
+
     /*
     SetCycles((state) =>
       state.map((cycle) => {
