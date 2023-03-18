@@ -59,6 +59,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
   }
 
   function markCurrentCycleAsFinished() {
+    /*
     SetCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
@@ -68,7 +69,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
           return cycle
         }
       }),
-    )
+    ) */
     SetActiveCycle(null)
   }
 
@@ -81,8 +82,8 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
       startDate: new Date(),
       amountSecondsPass,
     }
-
-    SetCycles((state) => [...state, newCycle]) // adicionando um estado novo pegando o anterior e passando o novo
+    dispatch()
+    // SetCycles((state) => [...state, newCycle]) // adicionando um estado novo pegando o anterior e passando o novo
     SetActiveCycle(id)
     setamountSecondsPass(0)
   }
@@ -90,6 +91,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
   // ---------------------------------------------
 
   function InterruptedCycle() {
+    /*
     SetCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
@@ -100,6 +102,8 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
         }
       }),
     )
+    */
+
     SetActiveCycle(null)
   }
   return (
