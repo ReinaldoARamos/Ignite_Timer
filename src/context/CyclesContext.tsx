@@ -45,16 +45,30 @@ interface CyclesState {
 export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
 
 export function CyclesContextProvider({ children }: contextProviderProps) {
-  const [cycles, dispatch] = useReducer(
+  const [cyclesState, dispatch] = useReducer(
+    // reducer irá controlar os estados do app
     (state: CyclesState /* valor atual da variavel */, action: any) => {
+      // setamos o cycleState
       if (action.type === 'ADD_NEW_CYCLE') {
-        return [...state, action.payload.newCycle]
+        // nopme da ação
+        return {
+          ...state,
+          cycles: [...state.cycles, action.payload.newCycle],
+          // retorna o estado mais a ação
+        }
+        // con esse useReducer todos os estados do ciclo serão controlados aqui, sem a necessidade de criar
+        // varios estados
       }
       return state
     },
-    [],
+    {
+      cycles: [],
+      activeCycleId: null,
+    },
   )
-  const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
+
+  const { activeCycleId, cycles } = cyclesState
+  // const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
   const [amountSecondsPass, setamountSecondsPass] = useState(0)
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
