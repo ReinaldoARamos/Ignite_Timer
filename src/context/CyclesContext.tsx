@@ -37,11 +37,16 @@ interface CyclesContextData {
 interface contextProviderProps {
   children: ReactNode
 }
+interface CyclesState {
+  cycles: Cycle[]
+  activeCycleId: string | null
+}
+
 export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
 
 export function CyclesContextProvider({ children }: contextProviderProps) {
   const [cycles, dispatch] = useReducer(
-    (state: Cycle[] /* valor atual da variavel */, action: any) => {
+    (state: CyclesState /* valor atual da variavel */, action: any) => {
       if (action.type === 'ADD_NEW_CYCLE') {
         return [...state, action.payload.newCycle]
       }
