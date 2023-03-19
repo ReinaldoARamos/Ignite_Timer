@@ -1,3 +1,5 @@
+import { Action } from '@remix-run/router'
+
 export interface Cycle {
   id: string
   task: string
@@ -13,12 +15,17 @@ interface CyclesState {
   activeCycleId: string | null
 }
 
+export enum actionTypes {
+  ADD_NEW_CYCLE = 'ADD_NEW_CYCLE',
+  INTERRUPT_CURRENT_CYCLE = 'INTERRUPT_CURRENT_CYCLE',
+  MARK_CURRENT_CYCLE = 'MARK_CURRENT_CYCLE',
+}
 export function cyclesReducer(
   state: CyclesState /* valor atual da variavel */,
   action: any,
 ) {
   // setamos o cycleState
-  if (action.type === 'ADD_NEW_CYCLE') {
+  if (action.type === actionTypes.ADD_NEW_CYCLE) {
     // nopme da ação
     return {
       ...state,
@@ -29,7 +36,7 @@ export function cyclesReducer(
     // varios estados
   }
 
-  if (action.type === 'INTERRUPT_CURRENT_CYCLE') {
+  if (action.type === actionTypes.INTERRUPT_CURRENT_CYCLE) {
     return {
       ...state,
       cycles: state.cycles.map((cycle) => {
@@ -44,7 +51,7 @@ export function cyclesReducer(
     }
   }
 
-  if (action.type === 'MARK_CURRENT_CYCLE') {
+  if (action.type === actionTypes.ADD_NEW_CYCLE) {
     return {
       ...state,
       cycles: state.cycles.map((cycle) => {
