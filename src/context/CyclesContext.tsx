@@ -1,5 +1,10 @@
 import { createContext, ReactNode, useReducer, useState } from 'react'
-import { Cycle, cyclesReducer } from '../reducers/cycles'
+import {
+  addNewCycleAction,
+  InterruptCycleAction,
+  MarkFinishedAction,
+} from '../reducers/cycles/actions'
+import { Cycle, cyclesReducer } from '../reducers/cycles/reducers'
 // ---------------------------------------------
 
 interface CreateCycleData {
@@ -53,16 +58,11 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
   }
 
   function markCurrentCycleAsFinished() {
-    dispatch({
-      type: 'MARK_CURRENT_CYCLE',
-      payload: {
-        data: activeCycleId,
-      },
-    })
+    dispatch(MarkFinishedAction(activeCycleId))
     /*
     SetCycles((state) =>
+     // SetActiveCycle(null)
      */
-    // SetActiveCycle(null)
   }
 
   // ---------------------------------------------
@@ -74,12 +74,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
       startDate: new Date(),
       amountSecondsPass,
     }
-    dispatch({
-      type: 'ADD_NEW_CYCLE',
-      payload: {
-        newCycle,
-      },
-    })
+    dispatch(addNewCycleAction(newCycle))
     // SetCycles((state) => [...state, newCycle]) // adicionando um estado novo pegando o anterior e passando o novo
     // SetActiveCycle(id)
     setamountSecondsPass(0)
@@ -88,12 +83,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
   // ---------------------------------------------
 
   function InterruptedCycle() {
-    dispatch({
-      type: 'INTERRUPT_CURRENT_CYCLE',
-      payload: {
-        data: activeCycleId,
-      },
-    })
+    dispatch(InterruptCycleAction(activeCycleId))
 
     /*
     SetCycles((state) =>
@@ -106,9 +96,8 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
         }
       }),
     )
+     //  SetActiveCycle(null)
     */
-
-    //  SetActiveCycle(null)
   }
   return (
     <CyclesContext.Provider

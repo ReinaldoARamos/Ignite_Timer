@@ -1,4 +1,5 @@
 import { Action } from '@remix-run/router'
+import { actionTypes } from './actions'
 
 export interface Cycle {
   id: string
@@ -15,11 +16,6 @@ interface CyclesState {
   activeCycleId: string | null
 }
 
-export enum actionTypes {
-  ADD_NEW_CYCLE = 'ADD_NEW_CYCLE',
-  INTERRUPT_CURRENT_CYCLE = 'INTERRUPT_CURRENT_CYCLE',
-  MARK_CURRENT_CYCLE = 'MARK_CURRENT_CYCLE',
-}
 export function cyclesReducer(
   state: CyclesState /* valor atual da variavel */,
   action: any,
