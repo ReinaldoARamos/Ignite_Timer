@@ -1,3 +1,4 @@
+import { differenceInSeconds } from 'date-fns'
 import {
   createContext,
   ReactNode,
@@ -58,16 +59,25 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
     },
   )
 
-  const [amountSecondsPass, setamountSecondsPass] = useState(0)
   const { activeCycleId, cycles } = cyclesState
+  const activeCycle = cycles.find(
+    (cycle: { id: any }) => cycle.id === activeCycleId,
+  )
+  const [amountSecondsPass, setamountSecondsPass] = useState(() => {
+    if (activeCycle) {
+      return differenceInSeconds(
+        new Date(),
+        new Date(activeCycle.startDate), // se o startDate for string converte em data e
+        // se ja for data ele nao faz nada
+      )
+    }
+  })
   // const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
 
   useEffect(() => {
     const stateJSON = JSON.stringify(cyclesState)
     localStorage.setItem('@ignite-timer 1.0.0:', stateJSON)
   }, [cyclesState])
-
-  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   const id = String(new Date().getTime())
 
