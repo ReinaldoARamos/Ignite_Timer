@@ -51,11 +51,12 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
       cycles: [],
       activeCycleId: null,
     },
-    () => {
+    (initialState) => {
       const storageStateAsJSON = localStorage.getItem('@ignite-timer 1.0.0:')
       if (storageStateAsJSON) {
         return JSON.parse(storageStateAsJSON)
       }
+      return initialState // retorna o estado vazio caso nao haja nada no lcoalStorage
     },
   )
 
