@@ -58,7 +58,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
 
   useEffect(() => {
     const stateJSON = JSON.stringify(cyclesState)
-    localStorage.setItem('@ignite-timer:', stateJSON)
+    localStorage.setItem('@ignite-timer 1.0.0:', stateJSON)
   }, [cyclesState])
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
