@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useReducer, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react'
 import {
   addNewCycleAction,
   InterruptCycleAction,
@@ -45,9 +51,15 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
       activeCycleId: null,
     },
   )
+
   const [amountSecondsPass, setamountSecondsPass] = useState(0)
   const { activeCycleId, cycles } = cyclesState
   // const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cyclesState)
+    localStorage.setItem('@ignite-timer:', stateJSON)
+  }, [cyclesState])
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 

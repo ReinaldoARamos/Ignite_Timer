@@ -40,46 +40,33 @@ export function cyclesReducer(
     // varios estados
   }
 
- 
   if (action.type === actionTypes.INTERRUPT_CURRENT_CYCLE) {
-
-    const currentCycleIndex = state.cycles.findIndex(cycle => {
+    const currentCycleIndex = state.cycles.findIndex((cycle) => {
       return cycle.id === state.activeCycleId
     })
-    return produce(state, draft => {
+
+    if (currentCycleIndex < 0) {
+      return state // quando nao encotnrar ciclo ativo, apenas retorna o state
+    }
+
+    return produce(state, (draft) => {
       draft.activeCycleId = null
-
+      draft.cycles[currentCycleIndex].interruptedDate = new Date()
     })
-   
+  }
 
-    /*
-    {
-      ...state,
-      cycles: state.cycles.map((cycle) => {
-        if (cycle.id === state.activeCycleId) {
-          document.title = 'Home'
-          return { ...cycle, interruptedDate: new Date() }
-        } else {
-          return cycle
-        }
-      }),
-      activeCycleId: null,
+  if (action.type === actionTypes.MARK_CURRENT_CYCLE) {
+    const currentCycleIndex = state.cycles.findIndex((cycle) => {
+      return cycle.id === state.activeCycleId
+    })
+
+    if (currentCycleIndex < 0) {
+      return state // quando nao encotnrar ciclo ativo, apenas retorna o state
     }
+
+    return produce(state, (draft) => {
+      draft.activeCycleId = null
+      draft.cycles[currentCycleIndex].FinishedDate = new Date()
+    })
   }
-*/
-  if (action.type === actionTypes.ADD_NEW_CYCLE) {
-    return {
-      ...state,
-      cycles: state.cycles.map((cycle) => {
-        if (cycle.id === state.activeCycleId) {
-          document.title = 'Home'
-          return { ...cycle, FinishedDate: new Date() }
-        } else {
-          return cycle
-        }
-      }),
-      activeCycleId: null,
-    }
-  }
-  return state
 }
