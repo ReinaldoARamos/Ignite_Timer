@@ -40,8 +40,20 @@ export function cyclesReducer(
     // varios estados
   }
 
+ 
   if (action.type === actionTypes.INTERRUPT_CURRENT_CYCLE) {
-    return {
+
+    const currentCycleIndex = state.cycles.findIndex(cycle => {
+      return cycle.id === state.activeCycleId
+    })
+    return produce(state, draft => {
+      draft.activeCycleId = null
+
+    })
+   
+
+    /*
+    {
       ...state,
       cycles: state.cycles.map((cycle) => {
         if (cycle.id === state.activeCycleId) {
@@ -54,7 +66,7 @@ export function cyclesReducer(
       activeCycleId: null,
     }
   }
-
+*/
   if (action.type === actionTypes.ADD_NEW_CYCLE) {
     return {
       ...state,
