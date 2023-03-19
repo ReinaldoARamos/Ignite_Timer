@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useReducer, useState } from 'react'
-
+import { Cycle, cyclesReducer } from '../reducers/cycles'
 // ---------------------------------------------
 
 interface CreateCycleData {
@@ -9,16 +9,6 @@ interface CreateCycleData {
 }
 
 // ---------------------------------------------
-
-interface Cycle {
-  id: string
-  task: string
-  minutesAmout: number
-  startDate: Date
-  interruptedDate?: Date
-  FinishedDate?: Date
-  amountSecondsPass: number
-} // criando interface dos ciclos
 
 interface CyclesContextData {
   activeCycle: Cycle | undefined // passando a interface do contexto como a interface cycle
@@ -37,15 +27,12 @@ interface CyclesContextData {
 interface contextProviderProps {
   children: ReactNode
 }
-interface CyclesState {
-  cycles: Cycle[]
-  activeCycleId: string | null
-}
 
 export const CyclesContext = createContext({} as CyclesContextData) // criando o contexto do ciclo
 
 export function CyclesContextProvider({ children }: contextProviderProps) {
   const [cyclesState, dispatch] = useReducer(
+    cyclesReducer,
     // reducer irá controlar os estados do app
 
     {
