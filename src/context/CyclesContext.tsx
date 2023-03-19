@@ -54,10 +54,25 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
         return {
           ...state,
           cycles: [...state.cycles, action.payload.newCycle],
-          // retorna o estado mais a ação
+          activeCycleId: action.payload.newCycle.id, // SETA O ID ATIVO DO NOVO CICLO          // retorna o estado mais a ação
         }
         // con esse useReducer todos os estados do ciclo serão controlados aqui, sem a necessidade de criar
         // varios estados
+      }
+
+      if (action.type === 'INTERRUPT_CURRENT_CYCLE') {
+        return {
+          ...state,
+          cycles: state.cycles.map((cycle) => {
+            if (cycle.id === state.activeCycleId) {
+              document.title = 'Home'
+              return { ...cycle, interruptedDate: new Date() }
+            } else {
+              return cycle
+            }
+          }),
+          activeCycleId: null,
+        }
       }
       return state
     },
@@ -66,10 +81,10 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
       activeCycleId: null,
     },
   )
-
+  const [amountSecondsPass, setamountSecondsPass] = useState(0)
   const { activeCycleId, cycles } = cyclesState
   // const [activeCycleId, SetActiveCycle] = useState<string | null>(null) // inicisndo o estado que vai verificar o estado ativo
-  const [amountSecondsPass, setamountSecondsPass] = useState(0)
+
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   const id = String(new Date().getTime())
@@ -87,16 +102,8 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
     })
     /*
     SetCycles((state) =>
-      state.map((cycle) => {
-        if (cycle.id === activeCycleId) {
-          document.title = 'Home'
-          return { ...cycle, FinishedDate: new Date() }
-        } else {
-          return cycle
-        }
-      }),
-    ) */
-    SetActiveCycle(null)
+     */
+    // SetActiveCycle(null)
   }
 
   // ---------------------------------------------
@@ -115,7 +122,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
       },
     })
     // SetCycles((state) => [...state, newCycle]) // adicionando um estado novo pegando o anterior e passando o novo
-    SetActiveCycle(id)
+    // SetActiveCycle(id)
     setamountSecondsPass(0)
   }
 
@@ -142,7 +149,7 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
     )
     */
 
-    SetActiveCycle(null)
+    //  SetActiveCycle(null)
   }
   return (
     <CyclesContext.Provider
