@@ -50,6 +50,12 @@ export function CyclesContextProvider({ children }: contextProviderProps) {
       cycles: [],
       activeCycleId: null,
     },
+    () => {
+      const storageStateAsJSON = localStorage.getItem('@ignite-timer 1.0.0:')
+      if (storageStateAsJSON) {
+        return JSON.parse(storageStateAsJSON)
+      }
+    },
   )
 
   const [amountSecondsPass, setamountSecondsPass] = useState(0)
