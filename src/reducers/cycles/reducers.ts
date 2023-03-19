@@ -1,5 +1,6 @@
 import { Action } from '@remix-run/router'
 import { actionTypes } from './actions'
+import { produce } from 'immer'
 
 export interface Cycle {
   id: string
@@ -22,12 +23,19 @@ export function cyclesReducer(
 ) {
   // setamos o cycleState
   if (action.type === actionTypes.ADD_NEW_CYCLE) {
-    // nopme da ação
-    return {
+    // nome da ação
+    return produce(state, (draft) => {
+      draft.cycles.push(action.payload.newCycle)
+      draft.activeCycleId = action.payload.newCycle.id
+    })
+
+    /*
+    {
       ...state,
       cycles: [...state.cycles, action.payload.newCycle],
       activeCycleId: action.payload.newCycle.id, // SETA O ID ATIVO DO NOVO CICLO          // retorna o estado mais a ação
     }
+    */
     // con esse useReducer todos os estados do ciclo serão controlados aqui, sem a necessidade de criar
     // varios estados
   }
